@@ -41,6 +41,7 @@ class DrillsController extends Controller
      */
     public function store(DrillStore $request)
     {
+        //ファットコントローラー　リファクタ必須
         $user_id = Auth::id();
         $title = $request->input('title');
         $category_id = $request->input('category_id');
@@ -136,7 +137,7 @@ class DrillsController extends Controller
             'order' => 10
         ]);
 
-        return redirect('/')->with('flash_message', 'Registered.');
+        return redirect('/mypage')->with('flash_message', 'Registered.');
     }
 
     /**
@@ -158,7 +159,9 @@ class DrillsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $drill = Drill::with('problems')->where('id', $id)->get();
+
+        return view('edit' , ['drill' => $drill]);
     }
 
     /**

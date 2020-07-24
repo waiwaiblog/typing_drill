@@ -21,4 +21,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/mypage', 'OthersController@mypage')->name('mypage');
     Route::get('/create', 'DrillsController@create')->name('create');
     Route::post('/store', 'DrillsController@store')->name('store');
+    Route::get('/drills/{id}', 'DrillsController@edit')->name('edit');
 });

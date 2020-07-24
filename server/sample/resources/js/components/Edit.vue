@@ -2,7 +2,7 @@
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
             <h1 class="display-7 text-center pb-3">CreateWorkBook</h1>
-            <form action="/store" method="post">
+            <form action="/update" method="post">
                 <slot></slot>
                 <div class="form-group row justify-content-center">
                     <label for="validationTitle" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">Title</label>
@@ -19,7 +19,7 @@
                     <div class="col-md-7 col-sm-10 col-xs-12">
                         <select v-model="newEvent.category" :class="{'custom-select': true, 'is-valid': validation.category}" id="validationCategory" name="category_id" required>
                             <option value="">Select Category</option>
-                            <option :value="c.id" v-for="c in categories" :key="c.id">{{ c.category_name }}</option>
+<!--                            <option :value="c.id" v-for="c in categories" :key="c.id">{{ c.category_name }}</option>-->
                         </select>
                         <div class="invalid-feedback">
                             Please choose a username.
@@ -86,51 +86,51 @@
                     </div>
                 </div>
                 <template v-if="question6from10">
-                <div class="form-group row justify-content-center">
-                    <label for="validationQuestion6" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">Question6</label>
-                    <div class="col-md-7 col-sm-10 col-xs-12">
-                        <input v-model="newEvent.question6" type="text" :class="{'form-control': true, 'is-valid': validation2.question6}" id="validationQuestion6" name="question6" :readonly="check6">
-                        <div class="invalid-feedback">
-                            Please choose a username.
+                    <div class="form-group row justify-content-center">
+                        <label for="validationQuestion6" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">Question6</label>
+                        <div class="col-md-7 col-sm-10 col-xs-12">
+                            <input v-model="newEvent.question6" type="text" :class="{'form-control': true, 'is-valid': validation2.question6}" id="validationQuestion6" name="question6" :readonly="false">
+                            <div class="invalid-feedback">
+                                Please choose a username.
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group row justify-content-center">
-                    <label for="validationQuestion7" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">Question7</label>
-                    <div class="col-md-7 col-sm-10 col-xs-12">
-                        <input v-model="newEvent.question7" type="text" :class="{'form-control': true, 'is-valid': validation2.question7}" id="validationQuestion7" name="question7" :readonly="check7">
-                        <div class="invalid-feedback">
-                            Please choose a username.
+                    <div class="form-group row justify-content-center">
+                        <label for="validationQuestion7" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">Question7</label>
+                        <div class="col-md-7 col-sm-10 col-xs-12">
+                            <input v-model="newEvent.question7" type="text" :class="{'form-control': true, 'is-valid': validation2.question7}" id="validationQuestion7" name="question7">
+                            <div class="invalid-feedback">
+                                Please choose a username.
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group row justify-content-center">
-                    <label for="validationQuestion8" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">Question8</label>
-                    <div class="col-md-7 col-sm-10 col-xs-12">
-                        <input v-model="newEvent.question8" type="text" :class="{'form-control': true, 'is-valid': validation2.question8}" id="validationQuestion8" name="question8" :readonly="check8">
-                        <div class="invalid-feedback">
-                            Please choose a username.
+                    <div class="form-group row justify-content-center">
+                        <label for="validationQuestion8" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">Question8</label>
+                        <div class="col-md-7 col-sm-10 col-xs-12">
+                            <input v-model="newEvent.question8" type="text" :class="{'form-control': true, 'is-valid': validation2.question8}" id="validationQuestion8" name="question8">
+                            <div class="invalid-feedback">
+                                Please choose a username.
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group row justify-content-center">
-                    <label for="validationQuestion9" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">Question9</label>
-                    <div class="col-md-7 col-sm-10 col-xs-12">
-                        <input v-model="newEvent.question9" type="text" :class="{'form-control': true, 'is-valid': validation2.question9}" id="validationQuestion9" name="question9" :readonly="check9">
-                        <div class="invalid-feedback">
-                            Please choose a username.
+                    <div class="form-group row justify-content-center">
+                        <label for="validationQuestion9" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">Question9</label>
+                        <div class="col-md-7 col-sm-10 col-xs-12">
+                            <input v-model="newEvent.question9" type="text" :class="{'form-control': true, 'is-valid': validation2.question9}" id="validationQuestion9" name="question9">
+                            <div class="invalid-feedback">
+                                Please choose a username.
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group row justify-content-center">
-                    <label for="validationQuestion10" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">Question10</label>
-                    <div class="col-md-7 col-sm-10 col-xs-12">
-                        <input v-model="newEvent.question10" type="text" :class="{'form-control': true, 'is-valid': validation2.question10}" id="validationQuestion10" name="question10" :readonly="check10">
-                        <div class="invalid-feedback">
-                            Please choose a username.
+                    <div class="form-group row justify-content-center">
+                        <label for="validationQuestion10" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">Question10</label>
+                        <div class="col-md-7 col-sm-10 col-xs-12">
+                            <input v-model="newEvent.question10" type="text" :class="{'form-control': true, 'is-valid': validation2.question10}" id="validationQuestion10" name="question10">
+                            <div class="invalid-feedback">
+                                Please choose a username.
+                            </div>
                         </div>
                     </div>
-                </div>
                 </template>
 
 
@@ -141,35 +141,38 @@
                     </div>
                 </div>
             </form>
+<pre>
+{{ drill }}
+</pre>
         </div>
     </div>
 </template>
 
 <script>
     export default {
-            props: {
-              categories: {
-                  type: Array
-              },
+        props: {
+            drill: {
+                type: Array
+            },
         },
         data() {
             return {
                 postQuestion: '',
                 question6from10: false,
                 newEvent: {
-                    title: '',
+                    title: this.drill['0']['title'],
                     category: '',
                     difficulty: '',
-                    question1: '',
-                    question2: '',
-                    question3: '',
-                    question4: '',
-                    question5: '',
-                    question6: '',
-                    question7: '',
-                    question8: '',
-                    question9: '',
-                    question10: '',
+                    question1: this.drill['0']['problems']['0']['question'],
+                    question2: this.drill['0']['problems']['1']['question'],
+                    question3: this.drill['0']['problems']['2']['question'],
+                    question4: this.drill['0']['problems']['3']['question'],
+                    question5: this.drill['0']['problems']['4']['question'],
+                    question6: this.drill['0']['problems']['5']['question'],
+                    question7: this.drill['0']['problems']['6']['question'],
+                    question8: this.drill['0']['problems']['7']['question'],
+                    question9: this.drill['0']['problems']['8']['question'],
+                    question10: 'ああああ',
                 },
                 validation: {
                     title: false,
@@ -360,36 +363,6 @@
                     }
                 }
                 return valid
-            },
-            check6() {
-                if(this.checkValid) {
-                    return false
-                }
-                return true
-            },
-            check7() {
-                if(!this.check6 && this.validation2.question6) {
-                    return false
-                }
-                return true
-            },
-            check8() {
-                if(!this.check7 && this.validation2.question7) {
-                    return false
-                }
-                return true
-            },
-            check9() {
-                if(!this.check8 && this.validation2.question8) {
-                    return false
-                }
-                return true
-            },
-            check10() {
-                if(!this.check9 && this.validation2.question9) {
-                    return false
-                }
-                return true
             },
         },
         methods: {
