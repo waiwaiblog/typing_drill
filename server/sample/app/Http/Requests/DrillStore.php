@@ -24,19 +24,19 @@ class DrillStore extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:50',
-            'category_id' => 'required',
-            'difficulty' => 'required',
-            'question1' => 'required|max:70',
-            'question2' => 'required|max:70',
-            'question3' => 'required|max:70',
-            'question4' => 'required|max:70',
-            'question5' => 'required|max:70',
-            'question6' => 'nullable|max:70',
-            'question7' => 'nullable|max:70',
-            'question8' => 'nullable|max:70',
-            'question9' => 'nullable|max:70',
-            'question10' => 'nullable|max:70',
+            'title' => ['required', 'max:50'],
+            'category_id' => ['required'],
+            'difficulty' => ['required'],
+            'question1' => ['regex:/^[\x20-\x7e]*$/', 'required', 'max:70'],
+            'question2' => ['regex:/^[\x20-\x7e]*$/', 'required', 'max:70'],
+            'question3' => ['regex:/^[\x20-\x7e]*$/', 'required', 'max:70'],
+            'question4' => ['regex:/^[\x20-\x7e]*$/', 'required', 'max:70'],
+            'question5' => ['regex:/^[\x20-\x7e]*$/', 'required', 'max:70'],
+            'question6' => ['regex:/^[\x20-\x7e]*$/', 'nullable', 'max:70'],
+            'question7' => ['regex:/^[\x20-\x7e]*$/', 'nullable', 'max:70'],
+            'question8' => ['regex:/^[\x20-\x7e]*$/', 'nullable', 'max:70'],
+            'question9' => ['regex:/^[\x20-\x7e]*$/', 'nullable', 'max:70'],
+            'question10' => ['regex:/^[\x20-\x7e]*$/', 'nullable', 'max:70'],
         ];
     }
 }

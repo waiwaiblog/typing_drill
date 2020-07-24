@@ -2048,56 +2048,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    drill: {
-      type: Array
-    }
-  },
+  props: ['categories', 'drill'],
   data: function data() {
     return {
-      postQuestion: '',
       question6from10: false,
+      //６問目以降表示するかどうか
       newEvent: {
-        title: this.drill['0']['title'],
+        //それぞれの入力フォーム初期値
+        id: '',
+        title: '',
         category: '',
         difficulty: '',
-        question1: this.drill['0']['problems']['0']['question'],
-        question2: this.drill['0']['problems']['1']['question'],
-        question3: this.drill['0']['problems']['2']['question'],
-        question4: this.drill['0']['problems']['3']['question'],
-        question5: this.drill['0']['problems']['4']['question'],
-        question6: this.drill['0']['problems']['5']['question'],
-        question7: this.drill['0']['problems']['6']['question'],
-        question8: this.drill['0']['problems']['7']['question'],
-        question9: this.drill['0']['problems']['8']['question'],
-        question10: 'ああああ'
+        question1: '',
+        question2: '',
+        question3: '',
+        question4: '',
+        question5: '',
+        question6: '',
+        question7: '',
+        question8: '',
+        question9: '',
+        question10: ''
       },
-      validation: {
+      checkValidation: {
+        //必須項目
         title: false,
         category: false,
         question1: false,
         question2: false,
         question3: false,
         question4: false,
-        question5: false,
-        question6: true,
-        question7: true,
-        question8: true,
-        question9: true,
-        question10: true
+        question5: false
       },
-      validation2: {
+      throughValidation: {
+        //任意項目（入力があればバリデーションをかける）
         question6: false,
         question7: false,
         question8: false,
@@ -2108,137 +2093,125 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     'newEvent.title': function newEventTitle(value) {
+      //タイトル入力バリデーション
       if (value !== '' && value.length <= 50) {
-        this.validation.title = true;
+        this.checkValidation.title = true;
       } else {
-        this.validation.title = false;
+        this.checkValidation.title = false;
       }
     },
     'newEvent.category': function newEventCategory(value) {
+      //カテゴリーバリデーション
       if (value !== '') {
-        this.validation.category = true;
+        this.checkValidation.category = true;
       } else {
-        this.validation.category = false;
+        this.checkValidation.category = false;
       }
     },
     'newEvent.question1': function newEventQuestion1(value) {
+      //質問バリデーション
       if (value !== '' && value.match(/^[\x20-\x7e]*$/) && value.length <= 70) {
-        this.validation.question1 = true;
+        this.checkValidation.question1 = true;
       } else {
-        this.validation.question1 = false;
+        this.checkValidation.question1 = false;
       }
     },
     'newEvent.question2': function newEventQuestion2(value) {
+      //質問バリデーション
       if (value !== '' && value.match(/^[\x20-\x7e]*$/) && value.length <= 70) {
-        this.validation.question2 = true;
+        this.checkValidation.question2 = true;
       } else {
-        this.validation.question2 = false;
+        this.checkValidation.question2 = false;
       }
     },
     'newEvent.question3': function newEventQuestion3(value) {
+      //質問バリデーション
       if (value !== '' && value.match(/^[\x20-\x7e]*$/) && value.length <= 70) {
-        this.validation.question3 = true;
+        this.checkValidation.question3 = true;
       } else {
-        this.validation.question3 = false;
+        this.checkValidation.question3 = false;
       }
     },
     'newEvent.question4': function newEventQuestion4(value) {
+      //質問バリデーション
       if (value !== '' && value.match(/^[\x20-\x7e]*$/) && value.length <= 70) {
-        this.validation.question4 = true;
+        this.checkValidation.question4 = true;
       } else {
-        this.validation.question4 = false;
+        this.checkValidation.question4 = false;
       }
     },
     'newEvent.question5': function newEventQuestion5(value) {
+      //質問バリデーション
       if (value !== '' && value.match(/^[\x20-\x7e]*$/) && value.length <= 70) {
-        this.validation.question5 = true;
+        this.checkValidation.question5 = true;
       } else {
-        this.validation.question5 = false;
+        this.checkValidation.question5 = false;
       }
     },
     'newEvent.question6': function newEventQuestion6(value) {
+      //質問バリデーション（任意なので、入力があったらの条件）
       if (value !== '') {
-        this.validation2.question6 = true;
-
-        if (!value.match(/^[\x20-\x7e]*$/) || value.length > 70) {
-          this.validation.question6 = false;
-          this.validation2.question6 = false;
+        if (value.match(/^[\x20-\x7e]*$/) && value.length <= 70) {
+          this.throughValidation.question6 = true;
         } else {
-          this.validation.question6 = true;
-          this.validation2.question6 = true;
+          this.throughValidation.question6 = false;
         }
       } else {
-        this.validation2.question6 = false;
-        this.validation.question6 = true;
+        this.throughValidation.question6 = false;
       }
     },
     'newEvent.question7': function newEventQuestion7(value) {
+      //質問バリデーション（任意なので、入力があったらの条件）
       if (value !== '') {
-        this.validation2.question7 = true;
-
         if (!value.match(/^[\x20-\x7e]*$/) || value.length > 70) {
-          this.validation.question7 = false;
-          this.validation2.question7 = false;
+          this.throughValidation.question7 = false;
         } else {
-          this.validation.question7 = true;
-          this.validation2.question7 = true;
+          this.throughValidation.question7 = true;
         }
       } else {
-        this.validation2.question7 = false;
-        this.validation.question7 = true;
+        this.throughValidation.question7 = false;
       }
     },
     'newEvent.question8': function newEventQuestion8(value) {
+      //質問バリデーション（任意なので、入力があったらの条件）
       if (value !== '') {
-        this.validation2.question8 = true;
-
         if (!value.match(/^[\x20-\x7e]*$/) || value.length > 70) {
-          this.validation.question8 = false;
-          this.validation2.question8 = false;
+          this.throughValidation.question8 = false;
         } else {
-          this.validation.question8 = true;
-          this.validation2.question8 = true;
+          this.throughValidation.question8 = true;
         }
       } else {
-        this.validation2.question8 = false;
-        this.validation.question8 = true;
+        this.throughValidation.question8 = false;
       }
     },
     'newEvent.question9': function newEventQuestion9(value) {
+      //質問バリデーション（任意なので、入力があったらの条件）
       if (value !== '') {
-        this.validation2.question9 = true;
-
         if (!value.match(/^[\x20-\x7e]*$/) || value.length > 70) {
-          this.validation.question9 = false;
-          this.validation2.question9 = false;
+          this.throughValidation.question9 = false;
         } else {
-          this.validation.question9 = true;
-          this.validation2.question9 = true;
+          this.throughValidation.question9 = true;
         }
       } else {
-        this.validation2.question9 = false;
-        this.validation.question9 = true;
+        this.throughValidation.question9 = false;
       }
     },
     'newEvent.question10': function newEventQuestion10(value) {
+      //質問バリデーション（任意なので、入力があったらの条件）
       if (value !== '') {
-        this.validation2.question10 = true;
-
         if (!value.match(/^[\x20-\x7e]*$/) || value.length > 70) {
-          this.validation.question10 = false;
-          this.validation2.question10 = false;
+          this.throughValidation.question10 = false;
         } else {
-          this.validation.question10 = true;
-          this.validation2.question10 = true;
+          this.throughValidation.question10 = true;
         }
       } else {
-        this.validation2.question10 = false;
-        this.validation.question10 = true;
+        this.throughValidation.question10 = false;
       }
     }
   },
   computed: {
     checkDifficulty: function checkDifficulty() {
+      //難易度を計算して表示させる
       var count = 0;
       count += this.newEvent.question1.length;
       count += this.newEvent.question2.length;
@@ -2271,22 +2244,163 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     checkValid: function checkValid() {
+      /*
+       * 必須項目のバリデーションチェックを行っている。
+       * 質問の６問目以降は入力があったらチェックを行う。
+       * これは投稿ボタンの表示・非表示に関与している
+       */
       var valid = true;
 
-      for (var key in this.validation) {
-        if (!this.validation[key]) {
+      for (var key in this.checkValidation) {
+        if (!this.checkValidation[key]) {
+          valid = false;
+        }
+      }
+
+      if (this.newEvent.question6 !== '') {
+        if (!this.throughValidation.question6) {
+          valid = false;
+        }
+      }
+
+      if (this.newEvent.question7 !== '') {
+        if (!this.throughValidation.question7) {
+          valid = false;
+        }
+      }
+
+      if (this.newEvent.question8 !== '') {
+        if (!this.throughValidation.question8) {
+          valid = false;
+        }
+      }
+
+      if (this.newEvent.question9 !== '') {
+        if (!this.throughValidation.question9) {
+          valid = false;
+        }
+      }
+
+      if (this.newEvent.question10 !== '') {
+        if (!this.throughValidation.question10) {
           valid = false;
         }
       }
 
       return valid;
+    },
+    checkValid5: function checkValid5() {
+      /*
+       * 必須項目までのバリデーションが済んでいるかどうかをチェックしている
+       * これにより、６問目のフォーム表示非表示を判断する
+       */
+      var valid = true;
+
+      for (var key in this.checkValidation) {
+        if (!this.checkValidation[key]) {
+          valid = false;
+        }
+      }
+
+      return valid;
+    },
+    check6: function check6() {
+      /*
+       * ５問目までバリデーションが通っていれば６問目を表示する
+       */
+      if (!this.checkValid5) {
+        return true;
+      }
+
+      return false;
+    },
+    check7: function check7() {
+      /*
+       * ６問目のチェック（５問目までのバリデーションが通ってるかどうか）で、
+       * trueなら６問目が表示されない、falseなら６問目は表示されている
+       * ７問目はfalse＝６問目が表示されている時且つ６問目のバリデーションが通っている時に入力できるようになる
+       * つまり、入力できるのは、６問目がtrueの時且つcheck6がfalseの時（６問目が入力できる時）
+       */
+      if (this.check6 || !this.throughValidation.question6) {
+        return true;
+      }
+
+      return false;
+    },
+    check8: function check8() {
+      if (this.check7 || !this.throughValidation.question7) {
+        return true;
+      }
+
+      return false;
+    },
+    check9: function check9() {
+      if (this.check8 || !this.throughValidation.question8) {
+        return true;
+      }
+
+      return false;
+    },
+    check10: function check10() {
+      if (this.check9 || !this.throughValidation.question9) {
+        return true;
+      }
+
+      return false;
     }
   },
   methods: {
     inputContinue: function inputContinue(e) {
+      //６問目以降表示するボタン
       e.preventDefault();
       this.question6from10 = true;
     }
+  },
+  mounted: function mounted() {
+    this.newEvent.id = this.drill[0].id;
+    this.newEvent.title = this.drill[0].title;
+    this.newEvent.category = this.drill[0].category_id;
+    console.log(this.drill[0].problems.length);
+    this.newEvent.question1 = this.drill[0].problems[0].question;
+    this.newEvent.question2 = this.drill[0].problems[1].question;
+    this.newEvent.question3 = this.drill[0].problems[2].question;
+    this.newEvent.question4 = this.drill[0].problems[3].question;
+    this.newEvent.question5 = this.drill[0].problems[4].question;
+
+    if (this.drill[0].problems[5] !== undefined) {
+      this.newEvent.question6 = this.drill[0].problems[5].question;
+    }
+
+    if (this.drill[0].problems[6] !== undefined) {
+      this.newEvent.question7 = this.drill[0].problems[6].question;
+    }
+
+    if (this.drill[0].problems[7] !== undefined) {
+      this.newEvent.question8 = this.drill[0].problems[7].question;
+    }
+
+    if (this.drill[0].problems[8] !== undefined) {
+      this.newEvent.question9 = this.drill[0].problems[8].question;
+    }
+
+    if (this.drill[0].problems[9] !== undefined) {
+      this.newEvent.question10 = this.drill[0].problems[9].question;
+    } // if(!!this.drill[0].problems[5]) {
+    //     this.newEvent.question6 = this.drill[0].problems[5].question;
+    // }
+    // if(!!this.drill[0].problems[6]) {
+    //     this.newEvent.question7 = this.drill[0].problems[6].question;
+    // }
+    // if(!!this.drill[0].problems[7]) {
+    //     this.newEvent.question8 = this.drill[0].problems[7].question;
+    // }
+    // if(!!this.drill[0].problems[8]) {
+    //     this.newEvent.question9 = this.drill[0].problems[8].question;
+    // }
+    // if(!!this.drill[0].problems[9]) {
+    //     this.newEvent.question10 = this.drill[0].problems[9].question;
+    // }
+
   }
 });
 
@@ -2482,16 +2596,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    categories: {
-      type: Array
-    }
-  },
+  props: ['categories', 'errors'],
   data: function data() {
     return {
-      postQuestion: '',
       question6from10: false,
+      //６問目以降表示するかどうか
       newEvent: {
+        //それぞれの入力フォーム初期値
         title: '',
         category: '',
         difficulty: '',
@@ -2506,21 +2617,18 @@ __webpack_require__.r(__webpack_exports__);
         question9: '',
         question10: ''
       },
-      validation: {
+      checkValidation: {
+        //必須項目
         title: false,
         category: false,
         question1: false,
         question2: false,
         question3: false,
         question4: false,
-        question5: false,
-        question6: true,
-        question7: true,
-        question8: true,
-        question9: true,
-        question10: true
+        question5: false
       },
-      validation2: {
+      throughValidation: {
+        //任意項目（入力があればバリデーションをかける）
         question6: false,
         question7: false,
         question8: false,
@@ -2531,137 +2639,125 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     'newEvent.title': function newEventTitle(value) {
+      //タイトル入力バリデーション
       if (value !== '' && value.length <= 50) {
-        this.validation.title = true;
+        this.checkValidation.title = true;
       } else {
-        this.validation.title = false;
+        this.checkValidation.title = false;
       }
     },
     'newEvent.category': function newEventCategory(value) {
+      //カテゴリーバリデーション
       if (value !== '') {
-        this.validation.category = true;
+        this.checkValidation.category = true;
       } else {
-        this.validation.category = false;
+        this.checkValidation.category = false;
       }
     },
     'newEvent.question1': function newEventQuestion1(value) {
+      //質問バリデーション
       if (value !== '' && value.match(/^[\x20-\x7e]*$/) && value.length <= 70) {
-        this.validation.question1 = true;
+        this.checkValidation.question1 = true;
       } else {
-        this.validation.question1 = false;
+        this.checkValidation.question1 = false;
       }
     },
     'newEvent.question2': function newEventQuestion2(value) {
+      //質問バリデーション
       if (value !== '' && value.match(/^[\x20-\x7e]*$/) && value.length <= 70) {
-        this.validation.question2 = true;
+        this.checkValidation.question2 = true;
       } else {
-        this.validation.question2 = false;
+        this.checkValidation.question2 = false;
       }
     },
     'newEvent.question3': function newEventQuestion3(value) {
+      //質問バリデーション
       if (value !== '' && value.match(/^[\x20-\x7e]*$/) && value.length <= 70) {
-        this.validation.question3 = true;
+        this.checkValidation.question3 = true;
       } else {
-        this.validation.question3 = false;
+        this.checkValidation.question3 = false;
       }
     },
     'newEvent.question4': function newEventQuestion4(value) {
+      //質問バリデーション
       if (value !== '' && value.match(/^[\x20-\x7e]*$/) && value.length <= 70) {
-        this.validation.question4 = true;
+        this.checkValidation.question4 = true;
       } else {
-        this.validation.question4 = false;
+        this.checkValidation.question4 = false;
       }
     },
     'newEvent.question5': function newEventQuestion5(value) {
+      //質問バリデーション
       if (value !== '' && value.match(/^[\x20-\x7e]*$/) && value.length <= 70) {
-        this.validation.question5 = true;
+        this.checkValidation.question5 = true;
       } else {
-        this.validation.question5 = false;
+        this.checkValidation.question5 = false;
       }
     },
     'newEvent.question6': function newEventQuestion6(value) {
+      //質問バリデーション（任意なので、入力があったらの条件）
       if (value !== '') {
-        this.validation2.question6 = true;
-
-        if (!value.match(/^[\x20-\x7e]*$/) || value.length > 70) {
-          this.validation.question6 = false;
-          this.validation2.question6 = false;
+        if (value.match(/^[\x20-\x7e]*$/) && value.length <= 70) {
+          this.throughValidation.question6 = true;
         } else {
-          this.validation.question6 = true;
-          this.validation2.question6 = true;
+          this.throughValidation.question6 = false;
         }
       } else {
-        this.validation2.question6 = false;
-        this.validation.question6 = true;
+        this.throughValidation.question6 = false;
       }
     },
     'newEvent.question7': function newEventQuestion7(value) {
+      //質問バリデーション（任意なので、入力があったらの条件）
       if (value !== '') {
-        this.validation2.question7 = true;
-
         if (!value.match(/^[\x20-\x7e]*$/) || value.length > 70) {
-          this.validation.question7 = false;
-          this.validation2.question7 = false;
+          this.throughValidation.question7 = false;
         } else {
-          this.validation.question7 = true;
-          this.validation2.question7 = true;
+          this.throughValidation.question7 = true;
         }
       } else {
-        this.validation2.question7 = false;
-        this.validation.question7 = true;
+        this.throughValidation.question7 = false;
       }
     },
     'newEvent.question8': function newEventQuestion8(value) {
+      //質問バリデーション（任意なので、入力があったらの条件）
       if (value !== '') {
-        this.validation2.question8 = true;
-
         if (!value.match(/^[\x20-\x7e]*$/) || value.length > 70) {
-          this.validation.question8 = false;
-          this.validation2.question8 = false;
+          this.throughValidation.question8 = false;
         } else {
-          this.validation.question8 = true;
-          this.validation2.question8 = true;
+          this.throughValidation.question8 = true;
         }
       } else {
-        this.validation2.question8 = false;
-        this.validation.question8 = true;
+        this.throughValidation.question8 = false;
       }
     },
     'newEvent.question9': function newEventQuestion9(value) {
+      //質問バリデーション（任意なので、入力があったらの条件）
       if (value !== '') {
-        this.validation2.question9 = true;
-
         if (!value.match(/^[\x20-\x7e]*$/) || value.length > 70) {
-          this.validation.question9 = false;
-          this.validation2.question9 = false;
+          this.throughValidation.question9 = false;
         } else {
-          this.validation.question9 = true;
-          this.validation2.question9 = true;
+          this.throughValidation.question9 = true;
         }
       } else {
-        this.validation2.question9 = false;
-        this.validation.question9 = true;
+        this.throughValidation.question9 = false;
       }
     },
     'newEvent.question10': function newEventQuestion10(value) {
+      //質問バリデーション（任意なので、入力があったらの条件）
       if (value !== '') {
-        this.validation2.question10 = true;
-
         if (!value.match(/^[\x20-\x7e]*$/) || value.length > 70) {
-          this.validation.question10 = false;
-          this.validation2.question10 = false;
+          this.throughValidation.question10 = false;
         } else {
-          this.validation.question10 = true;
-          this.validation2.question10 = true;
+          this.throughValidation.question10 = true;
         }
       } else {
-        this.validation2.question10 = false;
-        this.validation.question10 = true;
+        this.throughValidation.question10 = false;
       }
     }
   },
   computed: {
     checkDifficulty: function checkDifficulty() {
+      //難易度を計算して表示させる
       var count = 0;
       count += this.newEvent.question1.length;
       count += this.newEvent.question2.length;
@@ -2694,10 +2790,60 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     checkValid: function checkValid() {
+      /*
+       * 必須項目のバリデーションチェックを行っている。
+       * 質問の６問目以降は入力があったらチェックを行う。
+       * これは投稿ボタンの表示・非表示に関与している
+       */
       var valid = true;
 
-      for (var key in this.validation) {
-        if (!this.validation[key]) {
+      for (var key in this.checkValidation) {
+        if (!this.checkValidation[key]) {
+          valid = false;
+        }
+      }
+
+      if (this.newEvent.question6 !== '') {
+        if (!this.throughValidation.question6) {
+          valid = false;
+        }
+      }
+
+      if (this.newEvent.question7 !== '') {
+        if (!this.throughValidation.question7) {
+          valid = false;
+        }
+      }
+
+      if (this.newEvent.question8 !== '') {
+        if (!this.throughValidation.question8) {
+          valid = false;
+        }
+      }
+
+      if (this.newEvent.question9 !== '') {
+        if (!this.throughValidation.question9) {
+          valid = false;
+        }
+      }
+
+      if (this.newEvent.question10 !== '') {
+        if (!this.throughValidation.question10) {
+          valid = false;
+        }
+      }
+
+      return valid;
+    },
+    checkValid5: function checkValid5() {
+      /*
+       * 必須項目までのバリデーションが済んでいるかどうかをチェックしている
+       * これにより、６問目のフォーム表示非表示を判断する
+       */
+      var valid = true;
+
+      for (var key in this.checkValidation) {
+        if (!this.checkValidation[key]) {
           valid = false;
         }
       }
@@ -2705,43 +2851,53 @@ __webpack_require__.r(__webpack_exports__);
       return valid;
     },
     check6: function check6() {
-      if (this.checkValid) {
-        return false;
+      /*
+       * ５問目までバリデーションが通っていれば６問目を表示する
+       */
+      if (!this.checkValid5) {
+        return true;
       }
 
-      return true;
+      return false;
     },
     check7: function check7() {
-      if (!this.check6 && this.validation2.question6) {
-        return false;
+      /*
+       * ６問目のチェック（５問目までのバリデーションが通ってるかどうか）で、
+       * trueなら６問目が表示されない、falseなら６問目は表示されている
+       * ７問目はfalse＝６問目が表示されている時且つ６問目のバリデーションが通っている時に入力できるようになる
+       * つまり、入力できるのは、６問目がtrueの時且つcheck6がfalseの時（６問目が入力できる時）
+       */
+      if (this.check6 || !this.throughValidation.question6) {
+        return true;
       }
 
-      return true;
+      return false;
     },
     check8: function check8() {
-      if (!this.check7 && this.validation2.question7) {
-        return false;
+      if (this.check7 || !this.throughValidation.question7) {
+        return true;
       }
 
-      return true;
+      return false;
     },
     check9: function check9() {
-      if (!this.check8 && this.validation2.question8) {
-        return false;
+      if (this.check8 || !this.throughValidation.question8) {
+        return true;
       }
 
-      return true;
+      return false;
     },
     check10: function check10() {
-      if (!this.check9 && this.validation2.question9) {
-        return false;
+      if (this.check9 || !this.throughValidation.question9) {
+        return true;
       }
 
-      return true;
+      return false;
     }
   },
   methods: {
     inputContinue: function inputContinue(e) {
+      //６問目以降表示するボタン
       e.preventDefault();
       this.question6from10 = true;
     }
@@ -38345,14 +38501,35 @@ var render = function() {
   return _c("div", { staticClass: "jumbotron jumbotron-fluid" }, [
     _c("div", { staticClass: "container" }, [
       _c("h1", { staticClass: "display-7 text-center pb-3" }, [
-        _vm._v("CreateWorkBook")
+        _vm._v("EditWorkBook")
       ]),
       _vm._v(" "),
       _c(
         "form",
-        { attrs: { action: "/update", method: "post" } },
+        { attrs: { action: "/update/" + _vm.newEvent.id, method: "post" } },
         [
           _vm._t("default"),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.newEvent.id,
+                expression: "newEvent.id"
+              }
+            ],
+            attrs: { type: "hidden", name: "id" },
+            domProps: { value: _vm.newEvent.id },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.newEvent, "id", $event.target.value)
+              }
+            }
+          }),
           _vm._v(" "),
           _c("div", { staticClass: "form-group row justify-content-center" }, [
             _c(
@@ -38377,13 +38554,14 @@ var render = function() {
                 ],
                 class: {
                   "form-control": true,
-                  "is-valid": _vm.validation.title
+                  "is-valid": _vm.checkValidation.title
                 },
                 attrs: {
                   type: "text",
                   id: "validationTitle",
                   name: "title",
-                  required: ""
+                  required: "",
+                  placeholder: "required"
                 },
                 domProps: { value: _vm.newEvent.title },
                 on: {
@@ -38396,11 +38574,7 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              _c("div", { staticClass: "invalid-feedback" }, [
-                _vm._v(
-                  "\n                            error\n                        "
-                )
-              ])
+              _c("div", { staticClass: "invalid-feedback" })
             ])
           ]),
           _vm._v(" "),
@@ -38429,7 +38603,7 @@ var render = function() {
                   ],
                   class: {
                     "custom-select": true,
-                    "is-valid": _vm.validation.category
+                    "is-valid": _vm.checkValidation.category
                   },
                   attrs: {
                     id: "validationCategory",
@@ -38458,16 +38632,27 @@ var render = function() {
                 },
                 [
                   _c("option", { attrs: { value: "" } }, [
-                    _vm._v("Select Category")
-                  ])
-                ]
+                    _vm._v("Select Category(required)")
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.categories, function(c) {
+                    return _c(
+                      "option",
+                      {
+                        key: c.id,
+                        domProps: {
+                          value: c.id,
+                          selected: c.id == _vm.newEvent.category
+                        }
+                      },
+                      [_vm._v(_vm._s(c.category_name))]
+                    )
+                  })
+                ],
+                2
               ),
               _vm._v(" "),
-              _c("div", { staticClass: "invalid-feedback" }, [
-                _vm._v(
-                  "\n                            Please choose a username.\n                        "
-                )
-              ])
+              _c("div", { staticClass: "invalid-feedback" })
             ])
           ]),
           _vm._v(" "),
@@ -38514,9 +38699,9 @@ var render = function() {
                   }
                 }),
                 _vm._v(
-                  "\n                        " +
+                  "\n                    " +
                     _vm._s(_vm.checkDifficulty) +
-                    "\n                    "
+                    "\n                "
                 )
               ]
             )
@@ -38545,13 +38730,14 @@ var render = function() {
                 ],
                 class: {
                   "form-control": true,
-                  "is-valid": _vm.validation.question1
+                  "is-valid": _vm.checkValidation.question1
                 },
                 attrs: {
                   type: "text",
                   id: "validationQuestion1",
                   name: "question1",
-                  required: ""
+                  required: "",
+                  placeholder: "required"
                 },
                 domProps: { value: _vm.newEvent.question1 },
                 on: {
@@ -38564,11 +38750,7 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              _c("div", { staticClass: "invalid-feedback" }, [
-                _vm._v(
-                  "\n                            Please choose a username.\n                        "
-                )
-              ])
+              _c("div", { staticClass: "invalid-feedback" })
             ])
           ]),
           _vm._v(" "),
@@ -38595,13 +38777,14 @@ var render = function() {
                 ],
                 class: {
                   "form-control": true,
-                  "is-valid": _vm.validation.question2
+                  "is-valid": _vm.checkValidation.question2
                 },
                 attrs: {
                   type: "text",
                   id: "validationQuestion2",
                   name: "question2",
-                  required: ""
+                  required: "",
+                  placeholder: "required"
                 },
                 domProps: { value: _vm.newEvent.question2 },
                 on: {
@@ -38614,11 +38797,7 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              _c("div", { staticClass: "invalid-feedback" }, [
-                _vm._v(
-                  "\n                            Please choose a username.\n                        "
-                )
-              ])
+              _c("div", { staticClass: "invalid-feedback" })
             ])
           ]),
           _vm._v(" "),
@@ -38645,13 +38824,14 @@ var render = function() {
                 ],
                 class: {
                   "form-control": true,
-                  "is-valid": _vm.validation.question3
+                  "is-valid": _vm.checkValidation.question3
                 },
                 attrs: {
                   type: "text",
                   id: "validationQuestion3",
                   name: "question3",
-                  required: ""
+                  required: "",
+                  placeholder: "required"
                 },
                 domProps: { value: _vm.newEvent.question3 },
                 on: {
@@ -38664,11 +38844,7 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              _c("div", { staticClass: "invalid-feedback" }, [
-                _vm._v(
-                  "\n                            Please choose a username.\n                        "
-                )
-              ])
+              _c("div", { staticClass: "invalid-feedback" })
             ])
           ]),
           _vm._v(" "),
@@ -38695,13 +38871,14 @@ var render = function() {
                 ],
                 class: {
                   "form-control": true,
-                  "is-valid": _vm.validation.question4
+                  "is-valid": _vm.checkValidation.question4
                 },
                 attrs: {
                   type: "text",
                   id: "validationQuestion4",
                   name: "question4",
-                  required: ""
+                  required: "",
+                  placeholder: "required"
                 },
                 domProps: { value: _vm.newEvent.question4 },
                 on: {
@@ -38714,11 +38891,7 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              _c("div", { staticClass: "invalid-feedback" }, [
-                _vm._v(
-                  "\n                            Please choose a username.\n                        "
-                )
-              ])
+              _c("div", { staticClass: "invalid-feedback" })
             ])
           ]),
           _vm._v(" "),
@@ -38745,13 +38918,14 @@ var render = function() {
                 ],
                 class: {
                   "form-control": true,
-                  "is-valid": _vm.validation.question5
+                  "is-valid": _vm.checkValidation.question5
                 },
                 attrs: {
                   type: "text",
                   id: "validationQuestion5",
                   name: "question5",
-                  required: ""
+                  required: "",
+                  placeholder: "required"
                 },
                 domProps: { value: _vm.newEvent.question5 },
                 on: {
@@ -38764,335 +38938,239 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              _c("div", { staticClass: "invalid-feedback" }, [
-                _vm._v(
-                  "\n                            Please choose a username.\n                        "
-                )
-              ])
+              _c("div", { staticClass: "invalid-feedback" })
             ])
           ]),
           _vm._v(" "),
-          _vm.question6from10 === false
-            ? _c(
-                "div",
-                { staticClass: "form-group row justify-content-center" },
-                [
-                  _c("label", {
-                    staticClass:
-                      "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
-                    attrs: { for: "validationQuestion5" }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "col-md-7 col-sm-10 col-xs-12 d-flex align-items-center"
-                    },
-                    [
-                      _c(
-                        "a",
-                        {
-                          attrs: { href: "#" },
-                          on: { click: _vm.inputContinue }
-                        },
-                        [_vm._v("６問目以降も入力する（任意）")]
-                      )
-                    ]
-                  )
-                ]
-              )
-            : _vm._e(),
+          _c("div", { staticClass: "form-group row justify-content-center" }, [
+            _c(
+              "label",
+              {
+                staticClass:
+                  "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
+                attrs: { for: "validationQuestion6" }
+              },
+              [_vm._v("Question6")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-7 col-sm-10 col-xs-12" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.newEvent.question6,
+                    expression: "newEvent.question6"
+                  }
+                ],
+                class: {
+                  "form-control": true,
+                  "is-valid": _vm.throughValidation.question6
+                },
+                attrs: {
+                  type: "text",
+                  id: "validationQuestion6",
+                  name: "question6",
+                  readonly: _vm.check6
+                },
+                domProps: { value: _vm.newEvent.question6 },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.newEvent, "question6", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "invalid-feedback" })
+            ])
+          ]),
           _vm._v(" "),
-          _vm.question6from10
-            ? [
-                _c(
-                  "div",
-                  { staticClass: "form-group row justify-content-center" },
-                  [
-                    _c(
-                      "label",
-                      {
-                        staticClass:
-                          "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
-                        attrs: { for: "validationQuestion6" }
-                      },
-                      [_vm._v("Question6")]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-7 col-sm-10 col-xs-12" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.newEvent.question6,
-                            expression: "newEvent.question6"
-                          }
-                        ],
-                        class: {
-                          "form-control": true,
-                          "is-valid": _vm.validation2.question6
-                        },
-                        attrs: {
-                          type: "text",
-                          id: "validationQuestion6",
-                          name: "question6",
-                          readonly: false
-                        },
-                        domProps: { value: _vm.newEvent.question6 },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.newEvent,
-                              "question6",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "invalid-feedback" }, [
-                        _vm._v(
-                          "\n                                Please choose a username.\n                            "
-                        )
-                      ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "form-group row justify-content-center" },
-                  [
-                    _c(
-                      "label",
-                      {
-                        staticClass:
-                          "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
-                        attrs: { for: "validationQuestion7" }
-                      },
-                      [_vm._v("Question7")]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-7 col-sm-10 col-xs-12" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.newEvent.question7,
-                            expression: "newEvent.question7"
-                          }
-                        ],
-                        class: {
-                          "form-control": true,
-                          "is-valid": _vm.validation2.question7
-                        },
-                        attrs: {
-                          type: "text",
-                          id: "validationQuestion7",
-                          name: "question7"
-                        },
-                        domProps: { value: _vm.newEvent.question7 },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.newEvent,
-                              "question7",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "invalid-feedback" }, [
-                        _vm._v(
-                          "\n                                Please choose a username.\n                            "
-                        )
-                      ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "form-group row justify-content-center" },
-                  [
-                    _c(
-                      "label",
-                      {
-                        staticClass:
-                          "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
-                        attrs: { for: "validationQuestion8" }
-                      },
-                      [_vm._v("Question8")]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-7 col-sm-10 col-xs-12" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.newEvent.question8,
-                            expression: "newEvent.question8"
-                          }
-                        ],
-                        class: {
-                          "form-control": true,
-                          "is-valid": _vm.validation2.question8
-                        },
-                        attrs: {
-                          type: "text",
-                          id: "validationQuestion8",
-                          name: "question8"
-                        },
-                        domProps: { value: _vm.newEvent.question8 },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.newEvent,
-                              "question8",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "invalid-feedback" }, [
-                        _vm._v(
-                          "\n                                Please choose a username.\n                            "
-                        )
-                      ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "form-group row justify-content-center" },
-                  [
-                    _c(
-                      "label",
-                      {
-                        staticClass:
-                          "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
-                        attrs: { for: "validationQuestion9" }
-                      },
-                      [_vm._v("Question9")]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-7 col-sm-10 col-xs-12" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.newEvent.question9,
-                            expression: "newEvent.question9"
-                          }
-                        ],
-                        class: {
-                          "form-control": true,
-                          "is-valid": _vm.validation2.question9
-                        },
-                        attrs: {
-                          type: "text",
-                          id: "validationQuestion9",
-                          name: "question9"
-                        },
-                        domProps: { value: _vm.newEvent.question9 },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.newEvent,
-                              "question9",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "invalid-feedback" }, [
-                        _vm._v(
-                          "\n                                Please choose a username.\n                            "
-                        )
-                      ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "form-group row justify-content-center" },
-                  [
-                    _c(
-                      "label",
-                      {
-                        staticClass:
-                          "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
-                        attrs: { for: "validationQuestion10" }
-                      },
-                      [_vm._v("Question10")]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-7 col-sm-10 col-xs-12" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.newEvent.question10,
-                            expression: "newEvent.question10"
-                          }
-                        ],
-                        class: {
-                          "form-control": true,
-                          "is-valid": _vm.validation2.question10
-                        },
-                        attrs: {
-                          type: "text",
-                          id: "validationQuestion10",
-                          name: "question10"
-                        },
-                        domProps: { value: _vm.newEvent.question10 },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.newEvent,
-                              "question10",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "invalid-feedback" }, [
-                        _vm._v(
-                          "\n                                Please choose a username.\n                            "
-                        )
-                      ])
-                    ])
-                  ]
-                )
-              ]
-            : _vm._e(),
+          _c("div", { staticClass: "form-group row justify-content-center" }, [
+            _c(
+              "label",
+              {
+                staticClass:
+                  "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
+                attrs: { for: "validationQuestion7" }
+              },
+              [_vm._v("Question7")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-7 col-sm-10 col-xs-12" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.newEvent.question7,
+                    expression: "newEvent.question7"
+                  }
+                ],
+                class: {
+                  "form-control": true,
+                  "is-valid": _vm.throughValidation.question7
+                },
+                attrs: {
+                  type: "text",
+                  id: "validationQuestion7",
+                  name: "question7",
+                  readonly: _vm.check7
+                },
+                domProps: { value: _vm.newEvent.question7 },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.newEvent, "question7", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "invalid-feedback" })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group row justify-content-center" }, [
+            _c(
+              "label",
+              {
+                staticClass:
+                  "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
+                attrs: { for: "validationQuestion8" }
+              },
+              [_vm._v("Question8")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-7 col-sm-10 col-xs-12" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.newEvent.question8,
+                    expression: "newEvent.question8"
+                  }
+                ],
+                class: {
+                  "form-control": true,
+                  "is-valid": _vm.throughValidation.question8
+                },
+                attrs: {
+                  type: "text",
+                  id: "validationQuestion8",
+                  name: "question8",
+                  readonly: _vm.check8
+                },
+                domProps: { value: _vm.newEvent.question8 },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.newEvent, "question8", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "invalid-feedback" })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group row justify-content-center" }, [
+            _c(
+              "label",
+              {
+                staticClass:
+                  "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
+                attrs: { for: "validationQuestion9" }
+              },
+              [_vm._v("Question9")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-7 col-sm-10 col-xs-12" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.newEvent.question9,
+                    expression: "newEvent.question9"
+                  }
+                ],
+                class: {
+                  "form-control": true,
+                  "is-valid": _vm.throughValidation.question9
+                },
+                attrs: {
+                  type: "text",
+                  id: "validationQuestion9",
+                  name: "question9",
+                  readonly: _vm.check9
+                },
+                domProps: { value: _vm.newEvent.question9 },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.newEvent, "question9", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "invalid-feedback" })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group row justify-content-center" }, [
+            _c(
+              "label",
+              {
+                staticClass:
+                  "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
+                attrs: { for: "validationQuestion10" }
+              },
+              [_vm._v("Question10")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-7 col-sm-10 col-xs-12" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.newEvent.question10,
+                    expression: "newEvent.question10"
+                  }
+                ],
+                class: {
+                  "form-control": true,
+                  "is-valid": _vm.throughValidation.question10
+                },
+                attrs: {
+                  type: "text",
+                  id: "validationQuestion10",
+                  name: "question10",
+                  readonly: _vm.check10
+                },
+                domProps: { value: _vm.newEvent.question10 },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.newEvent, "question10", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "invalid-feedback" })
+            ])
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-group row justify-content-center" }, [
             _c("div", { staticClass: "mx-auto col-md-2 col-sm-10 col-xs-12" }, [
@@ -39108,9 +39186,7 @@ var render = function() {
           ])
         ],
         2
-      ),
-      _vm._v(" "),
-      _c("pre", [_vm._v(_vm._s(_vm.drill) + "\n")])
+      )
     ])
   ])
 }
@@ -39218,13 +39294,14 @@ var render = function() {
                 ],
                 class: {
                   "form-control": true,
-                  "is-valid": _vm.validation.title
+                  "is-valid": _vm.checkValidation.title
                 },
                 attrs: {
                   type: "text",
                   id: "validationTitle",
                   name: "title",
-                  required: ""
+                  required: "",
+                  placeholder: "required"
                 },
                 domProps: { value: _vm.newEvent.title },
                 on: {
@@ -39238,7 +39315,11 @@ var render = function() {
               }),
               _vm._v(" "),
               _c("div", { staticClass: "invalid-feedback" }, [
-                _vm._v("\n                        error\n                    ")
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(_vm.errors.title) +
+                    "\n                    "
+                )
               ])
             ])
           ]),
@@ -39268,7 +39349,7 @@ var render = function() {
                   ],
                   class: {
                     "custom-select": true,
-                    "is-valid": _vm.validation.category
+                    "is-valid": _vm.checkValidation.category
                   },
                   attrs: {
                     id: "validationCategory",
@@ -39297,7 +39378,7 @@ var render = function() {
                 },
                 [
                   _c("option", { attrs: { value: "" } }, [
-                    _vm._v("Select Category")
+                    _vm._v("Select Category(required)")
                   ]),
                   _vm._v(" "),
                   _vm._l(_vm.categories, function(c) {
@@ -39313,7 +39394,9 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "invalid-feedback" }, [
                 _vm._v(
-                  "\n                        Please choose a username.\n                    "
+                  "\n                        " +
+                    _vm._s(_vm.errors.category_id) +
+                    "\n                    "
                 )
               ])
             ])
@@ -39393,13 +39476,14 @@ var render = function() {
                 ],
                 class: {
                   "form-control": true,
-                  "is-valid": _vm.validation.question1
+                  "is-valid": _vm.checkValidation.question1
                 },
                 attrs: {
                   type: "text",
                   id: "validationQuestion1",
                   name: "question1",
-                  required: ""
+                  required: "",
+                  placeholder: "required"
                 },
                 domProps: { value: _vm.newEvent.question1 },
                 on: {
@@ -39414,7 +39498,9 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "invalid-feedback" }, [
                 _vm._v(
-                  "\n                        Please choose a username.\n                    "
+                  "\n                        " +
+                    _vm._s(_vm.errors.question1) +
+                    "\n                    "
                 )
               ])
             ])
@@ -39443,13 +39529,14 @@ var render = function() {
                 ],
                 class: {
                   "form-control": true,
-                  "is-valid": _vm.validation.question2
+                  "is-valid": _vm.checkValidation.question2
                 },
                 attrs: {
                   type: "text",
                   id: "validationQuestion2",
                   name: "question2",
-                  required: ""
+                  required: "",
+                  placeholder: "required"
                 },
                 domProps: { value: _vm.newEvent.question2 },
                 on: {
@@ -39464,7 +39551,9 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "invalid-feedback" }, [
                 _vm._v(
-                  "\n                        Please choose a username.\n                    "
+                  "\n                        " +
+                    _vm._s(_vm.errors.question2) +
+                    "\n                    "
                 )
               ])
             ])
@@ -39493,13 +39582,14 @@ var render = function() {
                 ],
                 class: {
                   "form-control": true,
-                  "is-valid": _vm.validation.question3
+                  "is-valid": _vm.checkValidation.question3
                 },
                 attrs: {
                   type: "text",
                   id: "validationQuestion3",
                   name: "question3",
-                  required: ""
+                  required: "",
+                  placeholder: "required"
                 },
                 domProps: { value: _vm.newEvent.question3 },
                 on: {
@@ -39514,7 +39604,9 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "invalid-feedback" }, [
                 _vm._v(
-                  "\n                        Please choose a username.\n                    "
+                  "\n                        " +
+                    _vm._s(_vm.errors.question3) +
+                    "\n                    "
                 )
               ])
             ])
@@ -39543,13 +39635,14 @@ var render = function() {
                 ],
                 class: {
                   "form-control": true,
-                  "is-valid": _vm.validation.question4
+                  "is-valid": _vm.checkValidation.question4
                 },
                 attrs: {
                   type: "text",
                   id: "validationQuestion4",
                   name: "question4",
-                  required: ""
+                  required: "",
+                  placeholder: "required"
                 },
                 domProps: { value: _vm.newEvent.question4 },
                 on: {
@@ -39564,7 +39657,9 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "invalid-feedback" }, [
                 _vm._v(
-                  "\n                        Please choose a username.\n                    "
+                  "\n                        " +
+                    _vm._s(_vm.errors.question4) +
+                    "\n                    "
                 )
               ])
             ])
@@ -39593,13 +39688,14 @@ var render = function() {
                 ],
                 class: {
                   "form-control": true,
-                  "is-valid": _vm.validation.question5
+                  "is-valid": _vm.checkValidation.question5
                 },
                 attrs: {
                   type: "text",
                   id: "validationQuestion5",
                   name: "question5",
-                  required: ""
+                  required: "",
+                  placeholder: "required"
                 },
                 domProps: { value: _vm.newEvent.question5 },
                 on: {
@@ -39614,7 +39710,9 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "invalid-feedback" }, [
                 _vm._v(
-                  "\n                        Please choose a username.\n                    "
+                  "\n                        " +
+                    _vm._s(_vm.errors.question5) +
+                    "\n                    "
                 )
               ])
             ])
@@ -39680,7 +39778,7 @@ var render = function() {
                         ],
                         class: {
                           "form-control": true,
-                          "is-valid": _vm.validation2.question6
+                          "is-valid": _vm.throughValidation.question6
                         },
                         attrs: {
                           type: "text",
@@ -39705,7 +39803,9 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "invalid-feedback" }, [
                         _vm._v(
-                          "\n                        Please choose a username.\n                    "
+                          "\n                        " +
+                            _vm._s(_vm.errors.question6) +
+                            "\n                    "
                         )
                       ])
                     ])
@@ -39738,7 +39838,7 @@ var render = function() {
                         ],
                         class: {
                           "form-control": true,
-                          "is-valid": _vm.validation2.question7
+                          "is-valid": _vm.throughValidation.question7
                         },
                         attrs: {
                           type: "text",
@@ -39763,7 +39863,9 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "invalid-feedback" }, [
                         _vm._v(
-                          "\n                        Please choose a username.\n                    "
+                          "\n                        " +
+                            _vm._s(_vm.errors.question7) +
+                            "\n                    "
                         )
                       ])
                     ])
@@ -39796,7 +39898,7 @@ var render = function() {
                         ],
                         class: {
                           "form-control": true,
-                          "is-valid": _vm.validation2.question8
+                          "is-valid": _vm.throughValidation.question8
                         },
                         attrs: {
                           type: "text",
@@ -39821,7 +39923,9 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "invalid-feedback" }, [
                         _vm._v(
-                          "\n                        Please choose a username.\n                    "
+                          "\n                        " +
+                            _vm._s(_vm.errors.question8) +
+                            "\n                    "
                         )
                       ])
                     ])
@@ -39854,7 +39958,7 @@ var render = function() {
                         ],
                         class: {
                           "form-control": true,
-                          "is-valid": _vm.validation2.question9
+                          "is-valid": _vm.throughValidation.question9
                         },
                         attrs: {
                           type: "text",
@@ -39879,7 +39983,9 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "invalid-feedback" }, [
                         _vm._v(
-                          "\n                        Please choose a username.\n                    "
+                          "\n                        " +
+                            _vm._s(_vm.errors.question9) +
+                            "\n                    "
                         )
                       ])
                     ])
@@ -39912,7 +40018,7 @@ var render = function() {
                         ],
                         class: {
                           "form-control": true,
-                          "is-valid": _vm.validation2.question10
+                          "is-valid": _vm.throughValidation.question10
                         },
                         attrs: {
                           type: "text",
@@ -39937,7 +40043,9 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "invalid-feedback" }, [
                         _vm._v(
-                          "\n                        Please choose a username.\n                    "
+                          "\n                        " +
+                            _vm._s(_vm.errors.question10) +
+                            "\n                    "
                         )
                       ])
                     ])

@@ -22,4 +22,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/create', 'DrillsController@create')->name('create');
     Route::post('/store', 'DrillsController@store')->name('store');
     Route::get('/drills/{id}', 'DrillsController@edit')->name('edit');
+    Route::post('/update/{id}', 'DrillsController@update')->name('update');
 });
