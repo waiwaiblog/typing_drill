@@ -1997,7 +1997,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     typingScore: function typingScore() {
       //スコア
-      return this.wpm * 2 * (1 - this.missNum / (this.wpm * 2));
+      var score = this.wpm * 2 * (1 - this.missNum / (this.wpm * 2));
+      return isNaN(score) ? 0 : score;
     }
   },
   methods: {
@@ -38682,9 +38683,12 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "jumbotron jumbotron-fluid" }, [
-    _c("div", { staticClass: "container" }, [
-      _c("h1", { staticClass: "display-7 text-center pb-3" }, [
+    _c("div", { staticClass: "container text-center" }, [
+      _c("h1", { staticClass: "display-7 mx-auto pr-2 pb-3 d-inline-block" }, [
         _vm._v(_vm._s(_vm.drill[0].title))
+      ]),
+      _c("span", { staticClass: "d-inline-block badge badge-success" }, [
+        _vm._v(_vm._s(_vm.drill[0].category.category_name))
       ]),
       _vm._v(" "),
       _c(
@@ -38742,7 +38746,7 @@ var render = function() {
                 _vm._v(" "),
                 _vm.userId > 0
                   ? _c("button", { staticClass: "btn btn-primary" }, [
-                      _vm._v("Score Registerd.")
+                      _vm._v("Score Registered")
                     ])
                   : _c("p", [_vm._v("Login if you want to register")]),
                 _vm._v(" "),

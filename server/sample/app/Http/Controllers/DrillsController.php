@@ -152,7 +152,7 @@ class DrillsController extends Controller
             return redirect(route('index'))->with('flash_message', __('Invalid operation was performed.'));
         }
 
-        $drill = Drill::with('problems')->where('id', $id)->get();
+        $drill = Drill::with(['problems', 'category'])->where('id', $id)->get();
 
 //        dd(json_decode(json_encode($drill)));
 

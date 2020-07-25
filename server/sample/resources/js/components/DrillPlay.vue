@@ -1,7 +1,7 @@
 <template>
     <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-            <h1 class="display-7 text-center pb-3">{{ drill[0].title }}</h1>
+        <div class="container text-center">
+            <h1 class="display-7 mx-auto pr-2 pb-3 d-inline-block">{{ drill[0].title }}</h1><span class="d-inline-block badge badge-success">{{ drill[0].category.category_name }}</span>
             <div class="card-body text-center drill-body">
                 <button class="btn btn-primary" @click="doDrill" v-if="!isStarted">
                     START
@@ -18,7 +18,7 @@
                 <template v-if="isEnd">
                     <h2>Your Score</h2>
                     <h2>{{ typingScore }}</h2>
-                    <button class="btn btn-primary" v-if="userId > 0">Score Registerd.</button>
+                    <button class="btn btn-primary" v-if="userId > 0">Score Registered</button>
                     <p v-else>Login if you want to register</p>
                     <button class="btn btn-success" @click="replay">Click Replay</button>
                 </template>
@@ -86,7 +86,9 @@
             },
             typingScore: function () {
                 //スコア
-                return (this.wpm * 2) * (1 - this.missNum / (this.wpm * 2));
+                let score = (this.wpm * 2) * (1 - this.missNum / (this.wpm * 2));
+
+                return isNaN(score) ? 0 : score;
             }
         },
         methods: {
