@@ -44,6 +44,11 @@
   display: block;
 }
 
+@font-face {
+  font-family: "MyFont";
+  src: url(/fonts/myfont.ttf?e0f2830b31ee54edf6ed71f2d706f72e);
+}
+
 /*!
  * Bootstrap v4.5.0 (https://getbootstrap.com/)
  * Copyright 2011-2020 The Bootstrap Authors

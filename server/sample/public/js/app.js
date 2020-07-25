@@ -1899,6 +1899,173 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DrillPlay.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DrillPlay.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    drill: {
+      type: Array
+    },
+    userId: {
+      type: Number
+    }
+  },
+  data: function data() {
+    return {
+      countDownNum: 3,
+      timerNum: 30,
+      missNum: 0,
+      wpm: 0,
+      isStarted: false,
+      isEnd: false,
+      isCountDown: false,
+      currentWordNum: 0,
+      currentProblemNum: 0,
+      totalProblem: 0
+    };
+  },
+  mounted: function mounted() {
+    var problem = [];
+
+    for (var i = 0; i < 10; i++) {
+      problem.push(this.drill[0].problems[i].question);
+    }
+
+    var filterNullProblem = problem.filter(function (e) {
+      return e !== '';
+    });
+    this.totalProblem = filterNullProblem.length;
+    console.log(filterNullProblem.length);
+  },
+  computed: {
+    problemWords: function problemWords() {
+      if (this.isEnd === false) {
+        var problem = Array.from(this.drill[0].problems[this.currentProblemNum].question);
+        console.log(problem);
+        return problem;
+      }
+    },
+    totalWordsNum: function totalWordsNum() {
+      if (this.isEnd === false) {
+        return this.problemWords.length;
+      }
+    },
+    typingScore: function typingScore() {
+      return this.wpm * 2 * (1 - this.missNum / (this.wpm * 2));
+    }
+  },
+  methods: {
+    doDrill: function doDrill() {
+      this.isStarted = true;
+      this.countDown();
+    },
+    countDown: function countDown() {
+      var _this = this;
+
+      this.isCountDown = true;
+      var timer = window.setInterval(function () {
+        _this.countDownNum -= 1;
+
+        if (_this.countDownNum <= 0) {
+          _this.isCountDown = false;
+          window.clearInterval(timer);
+
+          _this.countTimer();
+
+          _this.showFirstProblem();
+        }
+      }, 1000);
+    },
+    showFirstProblem: function showFirstProblem() {
+      var _this2 = this;
+
+      window.addEventListener('keypress', function (e) {
+        if (_this2.isEnd === true) {
+          e.preventDefault();
+          return;
+        }
+
+        console.log(e.key);
+
+        if (e.key === _this2.problemWords[_this2.currentWordNum]) {
+          console.log('正解！');
+          ++_this2.currentWordNum;
+          ++_this2.wpm;
+          console.log('現在回答の文字数目:' + _this2.currentWordNum);
+
+          if (_this2.totalWordsNum === _this2.currentWordNum) {
+            console.log('次の問題へ');
+            ++_this2.currentProblemNum;
+            _this2.currentWordNum = 0;
+
+            if (_this2.totalProblem === _this2.currentProblemNum) {
+              _this2.isEnd = true;
+            }
+          }
+        } else {
+          console.log('不正解');
+          ++_this2.missNum;
+          console.log('現在回答の文字数目:' + _this2.currentWordNum);
+        }
+      });
+    },
+    countTimer: function countTimer() {
+      var _this3 = this;
+
+      var timer = window.setInterval(function () {
+        _this3.timerNum -= 1;
+
+        if (_this3.isEnd === true) {
+          window.clearInterval(timer);
+          console.log('カウントリセット');
+        }
+
+        if (_this3.timerNum <= 0) {
+          _this3.isEnd = true;
+          window.clearInterval(timer);
+        }
+      }, 1000);
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Edit.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Edit.vue?vue&type=script&lang=js& ***!
@@ -38483,6 +38650,104 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DrillPlay.vue?vue&type=template&id=30fa2658&":
+/*!************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DrillPlay.vue?vue&type=template&id=30fa2658& ***!
+  \************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "jumbotron jumbotron-fluid" }, [
+    _c("div", { staticClass: "container" }, [
+      _c(
+        "h1",
+        {
+          staticClass: "display-7 text-center pb-3",
+          staticStyle: { "font-family": "MyFont", color: "white" }
+        },
+        [_vm._v("aa　aa     a a " + _vm._s(_vm.drill[0].title))]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "card-body text-center drill-body" },
+        [
+          !_vm.isStarted
+            ? _c(
+                "button",
+                { staticClass: "btn btn-primary", on: { click: _vm.doDrill } },
+                [_vm._v("\n                START\n            ")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.isCountDown
+            ? _c("p", { staticStyle: { "font-size": "100px" } }, [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.countDownNum) +
+                    "\n            "
+                )
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.isStarted && !_vm.isCountDown && !_vm.isEnd
+            ? [
+                _c("h2", [_vm._v(_vm._s(_vm.timerNum))]),
+                _vm._v(" "),
+                _vm._l(_vm.problemWords, function(word, index) {
+                  return _c(
+                    "span",
+                    {
+                      class: { "text-primary": index < _vm.currentWordNum },
+                      staticStyle: {
+                        "font-size": "70px",
+                        "font-family": "MyFont"
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(word) +
+                          "\n                "
+                      )
+                    ]
+                  )
+                })
+              ]
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.isEnd
+            ? [
+                _c("h2", [_vm._v("あなたのスコア")]),
+                _vm._v(" "),
+                _c("h2", [_vm._v(_vm._s(_vm.typingScore))]),
+                _vm._v(" "),
+                _vm.userId > 0
+                  ? _c("button", [_vm._v("スコアを登録する")])
+                  : _c("p", [_vm._v("ログインすればスコア登録できます")])
+              ]
+            : _vm._e()
+        ],
+        2
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Edit.vue?vue&type=template&id=031ccff5&":
 /*!*******************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Edit.vue?vue&type=template&id=031ccff5& ***!
@@ -52269,6 +52534,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
 Vue.component('register', __webpack_require__(/*! ./components/Register.vue */ "./resources/js/components/Register.vue")["default"]);
 Vue.component('edit', __webpack_require__(/*! ./components/Edit.vue */ "./resources/js/components/Edit.vue")["default"]);
+Vue.component('drill-play', __webpack_require__(/*! ./components/DrillPlay.vue */ "./resources/js/components/DrillPlay.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -52336,6 +52602,75 @@ if (token) {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/components/DrillPlay.vue":
+/*!***********************************************!*\
+  !*** ./resources/js/components/DrillPlay.vue ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _DrillPlay_vue_vue_type_template_id_30fa2658___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DrillPlay.vue?vue&type=template&id=30fa2658& */ "./resources/js/components/DrillPlay.vue?vue&type=template&id=30fa2658&");
+/* harmony import */ var _DrillPlay_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DrillPlay.vue?vue&type=script&lang=js& */ "./resources/js/components/DrillPlay.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _DrillPlay_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _DrillPlay_vue_vue_type_template_id_30fa2658___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _DrillPlay_vue_vue_type_template_id_30fa2658___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/DrillPlay.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/DrillPlay.vue?vue&type=script&lang=js&":
+/*!************************************************************************!*\
+  !*** ./resources/js/components/DrillPlay.vue?vue&type=script&lang=js& ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DrillPlay_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./DrillPlay.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DrillPlay.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DrillPlay_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/DrillPlay.vue?vue&type=template&id=30fa2658&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/DrillPlay.vue?vue&type=template&id=30fa2658& ***!
+  \******************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DrillPlay_vue_vue_type_template_id_30fa2658___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./DrillPlay.vue?vue&type=template&id=30fa2658& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DrillPlay.vue?vue&type=template&id=30fa2658&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DrillPlay_vue_vue_type_template_id_30fa2658___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DrillPlay_vue_vue_type_template_id_30fa2658___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 

@@ -22,6 +22,7 @@ window.Vue = require('vue');
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('register', require('./components/Register.vue').default);
 Vue.component('edit', require('./components/Edit.vue').default);
+Vue.component('drill-play', require('./components/DrillPlay.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -23,7 +23,7 @@
                             <tbody>
                             @foreach($my_drills as $my_drill)
                             <tr>
-                                <td scope="row">{{ $my_drill->title }}</td>
+                                <td scope="row"><a href="{{ route('show', ['id' => $my_drill->id ]) }}">{{ $my_drill->title }}</a></td>
                                 <td>{{ $my_drill->category->category_name }}</td>
                                 <td>{{ $my_drill->difficulty }}</td>
                                 <td><a href="{{ route('edit', ['id' => $my_drill->id]) }}">Edit</a></td>

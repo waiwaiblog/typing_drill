@@ -16,6 +16,7 @@ Auth::routes();
 
 
 Route::get('/', 'OthersController@index')->name('index');
+Route::get('/drills/show/{id}', 'DrillsController@show')->name('show');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/mypage', 'OthersController@mypage')->name('mypage');

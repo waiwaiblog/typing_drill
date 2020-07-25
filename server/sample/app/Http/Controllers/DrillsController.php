@@ -148,7 +148,18 @@ class DrillsController extends Controller
      */
     public function show($id)
     {
-        //
+        if(!ctype_digit($id)) {
+            return redirect(route('index'))->with('flash_message', __('Invalid operation was performed.'));
+        }
+
+        $drill = Drill::with('problems')->where('id', $id)->get();
+
+//        dd(json_decode(json_encode($drill)));
+
+        $userId = empty(Auth::user()->id) ? 0 : Auth::user()->id;//ログインすればスコア登録できます用
+
+
+        return view('question', ['drill' => $drill, 'user_id' => $userId]);
     }
 
     /**
@@ -200,22 +211,6 @@ class DrillsController extends Controller
 
         $problem_table5 = array('drill_id' => $id, 'question' => $request->input('question5'), 'order' => 5);
         Problem::where('drill_id', $id)->where('order', 5)->first()->fill($problem_table5)->save();
-
-//        $problem_table6 = array('drill_id' => $id, 'question' => $request->input('question6'), 'order' => 6);
-//        Problem::where('drill_id', $id)->where('order', 6)->first()->fill($problem_table6)->save();
-//
-//        $problem_table7 = array('drill_id' => $id, 'question' => $request->input('question7'), 'order' => 7);
-//        Problem::where('drill_id', $id)->where('order', 7)->first()->fill($problem_table7)->save();
-//
-//        $problem_table8 = array('drill_id' => $id, 'question' => $request->input('question8'), 'order' => 8);
-//        Problem::where('drill_id', $id)->where('order', 8)->first()->fill($problem_table8)->save();
-//
-//        $problem_table9 = array('drill_id' => $id, 'question' => $request->input('question9'), 'order' => 9);
-//        Problem::where('drill_id', $id)->where('order', 9)->first()->fill($problem_table9)->save();
-//
-//        $problem_table10 = array('drill_id' => $id, 'question' => $request->input('question10'), 'order' => 10);
-//        Problem::where('drill_id', $id)->where('order', 10)->first()->fill($problem_table10)->save();
-
 
 
         if(!empty($request->input('question6'))) {
