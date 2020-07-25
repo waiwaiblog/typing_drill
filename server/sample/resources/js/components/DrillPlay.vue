@@ -16,10 +16,11 @@
                     </h2>
                 </template>
                 <template v-if="isEnd">
-                    <h2>あなたのスコア</h2>
+                    <h2>Your Score</h2>
                     <h2>{{ typingScore }}</h2>
-                    <button v-if="userId > 0">スコアを登録する</button>
-                    <p v-else>ログインすればスコア登録できます</p>
+                    <button class="btn btn-primary" v-if="userId > 0">Score Registerd.</button>
+                    <p v-else>Login if you want to register</p>
+                    <button class="btn btn-success" @click="replay">Click Replay</button>
                 </template>
             </div>
         </div>
@@ -151,6 +152,18 @@
                     }
                 }, 1000);
             },
+            replay: function () {
+                this.countDownNum = 3,
+                this.timerNum = 30,
+                this.missNum = 0,
+                this.wpm = 0,
+                this.isStarted = false,
+                this.isEnd = false,
+                this.isCountDown = false,
+                this.currentWordNum = 0,
+                this.currentProblemNum = 0,
+                this.totalProblem = 0
+            }
         }
     }
 </script>

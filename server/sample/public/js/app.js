@@ -1936,6 +1936,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     drill: {
@@ -2072,6 +2073,9 @@ __webpack_require__.r(__webpack_exports__);
           window.clearInterval(timer);
         }
       }, 1000);
+    },
+    replay: function replay() {
+      this.countDownNum = 3, this.timerNum = 30, this.missNum = 0, this.wpm = 0, this.isStarted = false, this.isEnd = false, this.isCountDown = false, this.currentWordNum = 0, this.currentProblemNum = 0, this.totalProblem = 0;
     }
   }
 });
@@ -38732,13 +38736,21 @@ var render = function() {
           _vm._v(" "),
           _vm.isEnd
             ? [
-                _c("h2", [_vm._v("あなたのスコア")]),
+                _c("h2", [_vm._v("Your Score")]),
                 _vm._v(" "),
                 _c("h2", [_vm._v(_vm._s(_vm.typingScore))]),
                 _vm._v(" "),
                 _vm.userId > 0
-                  ? _c("button", [_vm._v("スコアを登録する")])
-                  : _c("p", [_vm._v("ログインすればスコア登録できます")])
+                  ? _c("button", { staticClass: "btn btn-primary" }, [
+                      _vm._v("Score Registerd.")
+                    ])
+                  : _c("p", [_vm._v("Login if you want to register")]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  { staticClass: "btn btn-success", on: { click: _vm.replay } },
+                  [_vm._v("Click Replay")]
+                )
               ]
             : _vm._e()
         ],
