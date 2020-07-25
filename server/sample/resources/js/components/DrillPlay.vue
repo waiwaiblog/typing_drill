@@ -14,14 +14,16 @@
                     <h2 style="font-size:70px; font-family: 'Courier New', monospace; word-break: break-all; width: 100%;">
                         {{ problemWords }}
                     </h2>
+                    score:{{ typingScore }}
                 </template>
                 <template v-if="isEnd">
                     <h2>Your Score</h2>
                     <h2>{{ typingScore }}</h2>
-                    <button class="btn btn-primary" v-if="userId > 0">Score Registered</button>
+                    <p v-if="userId > 0">Score Registered</p>
                     <p v-else>Login if you want to register</p>
-                    <button class="btn btn-success" @click="replay">Click Replay</button>
+                    <a :href="'/drills/show/' + this.drill[0].id"><button class="btn btn-success">Click Replay</button></a>
                 </template>
+
             </div>
         </div>
     </div>
@@ -40,7 +42,7 @@
         data: function() {
             return {
                 countDownNum: 3,
-                timerNum: 30,
+                timerNum: 10,
                 missNum: 0,
                 wpm: 0,
                 isStarted: false,
@@ -87,9 +89,8 @@
             typingScore: function () {
                 //スコア
                 let score = (this.wpm * 2) * (1 - this.missNum / (this.wpm * 2));
-
                 return isNaN(score) ? 0 : score;
-            }
+            },
         },
         methods: {
             doDrill: function () {
@@ -149,23 +150,50 @@
                         console.log('カウントリセット')
                     }
                     if (this.timerNum <= 0) {
+                        this.postHighScore()
+                        this.postMyScore()
                         this.isEnd = true
                         window.clearInterval(timer)
                     }
                 }, 1000);
             },
-            replay: function () {
-                this.countDownNum = 3,
-                this.timerNum = 30,
-                this.missNum = 0,
-                this.wpm = 0,
-                this.isStarted = false,
-                this.isEnd = false,
-                this.isCountDown = false,
-                this.currentWordNum = 0,
-                this.currentProblemNum = 0,
-                this.totalProblem = 0
+            postHighScore: function () {
+                //・ドリルのハイスコア（ハイスコアと、そのユーザーID）
+                //現在あるカラムと比較して大きければ入れる。
+                const data = {
+                    high_score: this.typingScore,
+                    high_score_user_id: this.userId
+                }
+                const url = `/api/drill/score/${this.drill[0].id}`;
+                axios.post(url, data)
+                    .then( res => {
+
+                    })
+                .catch(error => {
+                    console.log(error);
+                })
+            },
+            postMyScore: function () {
+                //・個人のスコア記録（スコア、ユーザーID、drillID）
+                //ログインしてる場合のみ。
+                if(this.userId === 0) {
+                    return;
+                }
+                const data = {
+                    score: this.typingScore,
+                    user_id: this.userId
+                }
+                const url = `/api/myscore/${this.drill[0].id}`;
+                axios.post(url, data)
+                    .then(res => {
+
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+
             }
+
         }
     }
 </script>

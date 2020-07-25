@@ -12,22 +12,5 @@ use Illuminate\Database\Seeder;
      */
     public function run()
     {
-        DB::table('scores')->insert([
-            [
-                'score' => 200,
-                'user_id' => 1,
-                'drill_id' => 1
-            ],
-            [
-                'score' => 300,
-                'user_id' => 2,
-                'drill_id' => 2
-            ],
-            [
-                'score' => 400,
-                'user_id' => 3,
-                'drill_id' => 3
-            ],
-        ]);
     }
 }

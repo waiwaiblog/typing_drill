@@ -1937,6 +1937,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     drill: {
@@ -1949,7 +1951,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       countDownNum: 3,
-      timerNum: 30,
+      timerNum: 10,
       missNum: 0,
       wpm: 0,
       isStarted: false,
@@ -2070,13 +2072,42 @@ __webpack_require__.r(__webpack_exports__);
         }
 
         if (_this3.timerNum <= 0) {
+          _this3.postHighScore();
+
+          _this3.postMyScore();
+
           _this3.isEnd = true;
           window.clearInterval(timer);
         }
       }, 1000);
     },
-    replay: function replay() {
-      this.countDownNum = 3, this.timerNum = 30, this.missNum = 0, this.wpm = 0, this.isStarted = false, this.isEnd = false, this.isCountDown = false, this.currentWordNum = 0, this.currentProblemNum = 0, this.totalProblem = 0;
+    postHighScore: function postHighScore() {
+      //・ドリルのハイスコア（ハイスコアと、そのユーザーID）
+      //現在あるカラムと比較して大きければ入れる。
+      var data = {
+        high_score: this.typingScore,
+        high_score_user_id: this.userId
+      };
+      var url = "/api/drill/score/".concat(this.drill[0].id);
+      axios.post(url, data).then(function (res) {})["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    postMyScore: function postMyScore() {
+      //・個人のスコア記録（スコア、ユーザーID、drillID）
+      //ログインしてる場合のみ。
+      if (this.userId === 0) {
+        return;
+      }
+
+      var data = {
+        score: this.typingScore,
+        user_id: this.userId
+      };
+      var url = "/api/myscore/".concat(this.drill[0].id);
+      axios.post(url, data).then(function (res) {})["catch"](function (error) {
+        console.log(error);
+      });
     }
   }
 });
@@ -38734,6 +38765,11 @@ var render = function() {
                         "\n                "
                     )
                   ]
+                ),
+                _vm._v(
+                  "\n                score:" +
+                    _vm._s(_vm.typingScore) +
+                    "\n            "
                 )
               ]
             : _vm._e(),
@@ -38745,15 +38781,17 @@ var render = function() {
                 _c("h2", [_vm._v(_vm._s(_vm.typingScore))]),
                 _vm._v(" "),
                 _vm.userId > 0
-                  ? _c("button", { staticClass: "btn btn-primary" }, [
-                      _vm._v("Score Registered")
-                    ])
+                  ? _c("p", [_vm._v("Score Registered")])
                   : _c("p", [_vm._v("Login if you want to register")]),
                 _vm._v(" "),
                 _c(
-                  "button",
-                  { staticClass: "btn btn-success", on: { click: _vm.replay } },
-                  [_vm._v("Click Replay")]
+                  "a",
+                  { attrs: { href: "/drills/show/" + this.drill[0].id } },
+                  [
+                    _c("button", { staticClass: "btn btn-success" }, [
+                      _vm._v("Click Replay")
+                    ])
+                  ]
                 )
               ]
             : _vm._e()
@@ -52532,17 +52570,30 @@ module.exports = function(module) {
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
+
+
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+var token = document.head.querySelector('meta[name="csrf-token"]');
+
+if (token) {
+  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+}
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -52552,6 +52603,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
  */
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+
 
 Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
 Vue.component('register', __webpack_require__(/*! ./components/Register.vue */ "./resources/js/components/Register.vue")["default"]);

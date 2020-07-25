@@ -39,6 +39,31 @@ use Illuminate\Database\Seeder;
                'order' => 5,
            ],
             [
+                'drill_id' => 1,
+                'question' => 'testtttttttest',
+                'order' => 6,
+            ],
+            [
+                'drill_id' => 1,
+                'question' => 'testtttttttest2',
+                'order' => 7,
+            ],
+            [
+                'drill_id' => 1,
+                'question' => 'testtttttttes3t3',
+                'order' => 8,
+            ],
+            [
+                'drill_id' => 1,
+                'question' => 'testtttttttes4',
+                'order' => 9,
+            ],
+            [
+                'drill_id' => 1,
+                'question' => 'testtttttttes5',
+                'order' => 10,
+            ],
+            [
                'drill_id' => 2,
                'question' => 'testtttttttest',
                'order' => 1,
@@ -64,6 +89,31 @@ use Illuminate\Database\Seeder;
                'order' => 5,
            ],
             [
+                'drill_id' => 2,
+                'question' => 'testtttttttest',
+                'order' => 6,
+            ],
+            [
+                'drill_id' => 2,
+                'question' => 'testtttttttest2',
+                'order' => 7,
+            ],
+            [
+                'drill_id' => 2,
+                'question' => 'testtttttttes3t3',
+                'order' => 8,
+            ],
+            [
+                'drill_id' => 2,
+                'question' => 'testtttttttes4',
+                'order' => 9,
+            ],
+            [
+                'drill_id' => 2,
+                'question' => 'testtttttttes5',
+                'order' => 10,
+            ],
+            [
                'drill_id' => 3,
                'question' => 'testtttttttest',
                'order' => 1,
@@ -88,6 +138,31 @@ use Illuminate\Database\Seeder;
                'question' => 'testtttttttes5',
                'order' => 5,
            ],
+            [
+                'drill_id' => 3,
+                'question' => 'testtttttttest',
+                'order' => 6,
+            ],
+            [
+                'drill_id' => 3,
+                'question' => 'testtttttttest2',
+                'order' => 7,
+            ],
+            [
+                'drill_id' => 3,
+                'question' => 'testtttttttes3t3',
+                'order' => 8,
+            ],
+            [
+                'drill_id' => 3,
+                'question' => 'testtttttttes4',
+                'order' => 9,
+            ],
+            [
+                'drill_id' => 3,
+                'question' => 'testtttttttes5',
+                'order' => 10,
+            ],
         ]);
     }
 }

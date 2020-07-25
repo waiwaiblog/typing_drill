@@ -1,6 +1,5 @@
 <?php
-
-use Illuminate\Http\Request;
+    use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +15,8 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('/drill/score/{id}', 'Api\DrillsController@highScore')->name('highScore');
+
+
+Route::post('/myscore/{id}', 'Api\DrillsController@score')->name('api.score');
