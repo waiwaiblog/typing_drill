@@ -1947,6 +1947,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      word: '',
       countDownNum: 3,
       timerNum: 30,
       missNum: 0,
@@ -1960,6 +1961,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    //トータル問題数の計算
     var problem = [];
 
     for (var i = 0; i < 10; i++) {
@@ -1975,35 +1977,46 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     problemWords: function problemWords() {
       if (this.isEnd === false) {
-        var problem = Array.from(this.drill[0].problems[this.currentProblemNum].question);
+        //１つずつ問題を持ってくる
+        var problem = this.drill[0].problems[this.currentProblemNum].question;
         console.log(problem);
-        return problem;
+        var placeholder = '';
+
+        for (var i = 0; i < this.currentWordNum; i++) {
+          placeholder += '_';
+        }
+
+        return placeholder + problem.substr(this.currentWordNum);
       }
     },
     totalWordsNum: function totalWordsNum() {
       if (this.isEnd === false) {
+        //問題の総文字数を返す
         return this.problemWords.length;
       }
     },
     typingScore: function typingScore() {
+      //スコア
       return this.wpm * 2 * (1 - this.missNum / (this.wpm * 2));
     }
   },
   methods: {
     doDrill: function doDrill() {
+      //スタートボタン、カウントダウン開始させる
       this.isStarted = true;
       this.countDown();
     },
     countDown: function countDown() {
       var _this = this;
 
+      //カウントダウン画面
       this.isCountDown = true;
       var timer = window.setInterval(function () {
         _this.countDownNum -= 1;
 
         if (_this.countDownNum <= 0) {
           _this.isCountDown = false;
-          window.clearInterval(timer);
+          window.clearInterval(timer); //０になったら問題のタイマーと、１問目を表示させる
 
           _this.countTimer();
 
@@ -38667,14 +38680,9 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "jumbotron jumbotron-fluid" }, [
     _c("div", { staticClass: "container" }, [
-      _c(
-        "h1",
-        {
-          staticClass: "display-7 text-center pb-3",
-          staticStyle: { "font-family": "MyFont", color: "white" }
-        },
-        [_vm._v("aa　aa     a a " + _vm._s(_vm.drill[0].title))]
-      ),
+      _c("h1", { staticClass: "display-7 text-center pb-3" }, [
+        _vm._v(_vm._s(_vm.drill[0].title))
+      ]),
       _vm._v(" "),
       _c(
         "div",
@@ -38702,25 +38710,22 @@ var render = function() {
             ? [
                 _c("h2", [_vm._v(_vm._s(_vm.timerNum))]),
                 _vm._v(" "),
-                _vm._l(_vm.problemWords, function(word, index) {
-                  return _c(
-                    "span",
-                    {
-                      class: { "text-primary": index < _vm.currentWordNum },
-                      staticStyle: {
-                        "font-size": "70px",
-                        "font-family": "MyFont"
-                      }
-                    },
-                    [
-                      _vm._v(
-                        "\n                    " +
-                          _vm._s(word) +
-                          "\n                "
-                      )
-                    ]
-                  )
-                })
+                _c(
+                  "span",
+                  {
+                    staticStyle: {
+                      "font-size": "70px",
+                      "font-family": "'Courier New', monospace"
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.problemWords) +
+                        "\n                "
+                    )
+                  ]
+                )
               ]
             : _vm._e(),
           _vm._v(" "),

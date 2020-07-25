@@ -1,7 +1,7 @@
 <template>
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="display-7 text-center pb-3" style="font-family: MyFont; color: white;">aa　aa     a a {{ drill[0].title }}</h1>
+            <h1 class="display-7 text-center pb-3">{{ drill[0].title }}</h1>
             <div class="card-body text-center drill-body">
                 <button class="btn btn-primary" @click="doDrill" v-if="!isStarted">
                     START
@@ -11,8 +11,8 @@
                 </p>
                 <template v-if="isStarted && !isCountDown &&!isEnd">
                     <h2>{{ timerNum }}</h2>
-                    <span style="font-size:70px; font-family: MyFont;" v-for="(word, index) in problemWords" :class="{'text-primary': index < currentWordNum}">
-                        {{ word }}
+                    <span style="font-size:70px; font-family: 'Courier New', monospace;">
+                        {{ problemWords }}
                     </span>
                 </template>
                 <template v-if="isEnd">
@@ -38,6 +38,7 @@
         },
         data: function() {
             return {
+                word: '',
                 countDownNum: 3,
                 timerNum: 30,
                 missNum: 0,
@@ -50,7 +51,7 @@
                 totalProblem: 0
             }
         },
-        mounted() {
+        mounted() { //トータル問題数の計算
             let problem = []
             for(let i = 0; i < 10; i++) {
                 problem.push(this.drill[0].problems[i].question)
@@ -65,26 +66,36 @@
         computed: {
             problemWords: function() {
                 if(this.isEnd === false) {
-                    let problem = Array.from(this.drill[0].problems[this.currentProblemNum].question);
+                    //１つずつ問題を持ってくる
+                    let problem = this.drill[0].problems[this.currentProblemNum].question;
                     console.log(problem);
-                    return problem;
+
+                    let placeholder = '';
+                    for (let i = 0; i < this.currentWordNum; i++) {
+                        placeholder += '_';
+                    }
+                    return placeholder + problem.substr(this.currentWordNum);
                 }
             },
             totalWordsNum: function () {
                 if (this.isEnd === false) {
+                    //問題の総文字数を返す
                     return this.problemWords.length;
                 }
             },
             typingScore: function () {
+                //スコア
                 return (this.wpm * 2) * (1 - this.missNum / (this.wpm * 2));
             }
         },
         methods: {
             doDrill: function () {
+                //スタートボタン、カウントダウン開始させる
                 this.isStarted = true;
                 this.countDown()
             },
             countDown: function () {
+                //カウントダウン画面
                 this.isCountDown = true
                 let timer = window.setInterval(() => {
                     this.countDownNum -= 1;
@@ -92,6 +103,7 @@
                     if(this.countDownNum <= 0) {
                         this.isCountDown = false
                         window.clearInterval(timer)
+                        //０になったら問題のタイマーと、１問目を表示させる
                         this.countTimer()
                         this.showFirstProblem()
                     }
@@ -107,6 +119,7 @@
                     if (e.key === this.problemWords[this.currentWordNum]) {
                         console.log('正解！')
                         ++this.currentWordNum
+
                         ++this.wpm
                         console.log('現在回答の文字数目:' + this.currentWordNum)
 
@@ -114,7 +127,6 @@
                             console.log('次の問題へ')
                             ++this.currentProblemNum
                             this.currentWordNum = 0
-
                             if (this.totalProblem === this.currentProblemNum) {
                                 this.isEnd = true
                             }
@@ -128,17 +140,17 @@
             },
             countTimer: function () {
                 let timer = window.setInterval(() => {
-                   this.timerNum -= 1
-                   if(this.isEnd === true) {
-                       window.clearInterval(timer)
-                       console.log('カウントリセット')
-                   }
+                    this.timerNum -= 1
+                    if(this.isEnd === true) {
+                        window.clearInterval(timer)
+                        console.log('カウントリセット')
+                    }
                     if (this.timerNum <= 0) {
                         this.isEnd = true
                         window.clearInterval(timer)
                     }
                 }, 1000);
-            }
+            },
         }
     }
 </script>
