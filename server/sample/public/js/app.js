@@ -1947,7 +1947,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      word: '',
       countDownNum: 3,
       timerNum: 30,
       missNum: 0,
@@ -38711,11 +38710,13 @@ var render = function() {
                 _c("h2", [_vm._v(_vm._s(_vm.timerNum))]),
                 _vm._v(" "),
                 _c(
-                  "span",
+                  "h2",
                   {
                     staticStyle: {
                       "font-size": "70px",
-                      "font-family": "'Courier New', monospace"
+                      "font-family": "'Courier New', monospace",
+                      "word-break": "break-all",
+                      width: "100%"
                     }
                   },
                   [

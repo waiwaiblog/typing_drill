@@ -11,9 +11,9 @@
                 </p>
                 <template v-if="isStarted && !isCountDown &&!isEnd">
                     <h2>{{ timerNum }}</h2>
-                    <span style="font-size:70px; font-family: 'Courier New', monospace;">
+                    <h2 style="font-size:70px; font-family: 'Courier New', monospace; word-break: break-all; width: 100%;">
                         {{ problemWords }}
-                    </span>
+                    </h2>
                 </template>
                 <template v-if="isEnd">
                     <h2>あなたのスコア</h2>
@@ -38,7 +38,6 @@
         },
         data: function() {
             return {
-                word: '',
                 countDownNum: 3,
                 timerNum: 30,
                 missNum: 0,
@@ -74,6 +73,7 @@
                     for (let i = 0; i < this.currentWordNum; i++) {
                         placeholder += '_';
                     }
+
                     return placeholder + problem.substr(this.currentWordNum);
                 }
             },
