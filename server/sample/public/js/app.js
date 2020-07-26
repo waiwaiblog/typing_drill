@@ -3249,6 +3249,15 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       return lists;
+    },
+    numberToCategory: function numberToCategory() {
+      return function (str) {
+        for (var i = 0; i < this.categories.length; i++) {
+          if (str === this.categories[i].id) {
+            return this.categories[i].category_name;
+          }
+        }
+      };
     }
   },
   methods: {
@@ -40699,7 +40708,11 @@ var render = function() {
                           {
                             staticClass: "badge badge-pill badge-success mr-2"
                           },
-                          [_vm._v(_vm._s(list.category_id))]
+                          [
+                            _vm._v(
+                              _vm._s(_vm.numberToCategory(list.category_id))
+                            )
+                          ]
                         ),
                         _vm._v(
                           "\n                                        " +

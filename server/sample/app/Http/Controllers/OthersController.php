@@ -14,7 +14,7 @@ class OthersController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $drills = Drill::all();
+        $drills = Drill::with('category', 'user')->get();
 
 
 //        dd(view('index', compact(['categories', 'drills'])));

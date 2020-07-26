@@ -31,7 +31,7 @@
                                     <div class="col-md-6">
                                         <h5 class="card-title">{{ list.title }}</h5>
                                         <p class="card-text">
-                                            <span class="badge badge-pill badge-success mr-2">{{ list.category_id }}</span>
+                                            <span class="badge badge-pill badge-success mr-2">{{ numberToCategory(list.category_id) }}</span>
                                             {{ list.difficulty }}
                                         </p>
                                         <p class="card-text">
@@ -86,6 +86,15 @@
                     })
                 }
                 return lists;
+            },
+            numberToCategory: function () {
+                return function (str) {
+                    for(let i = 0; i < this.categories.length; i++) {
+                        if(str === this.categories[i].id) {
+                            return this.categories[i].category_name;
+                        }
+                    }
+                };
             }
         },
         methods: {
@@ -93,6 +102,6 @@
                 this.selectCategoryId = null;
                 this.selectDifficultyId = null;
             }
-        }
+        },
     }
 </script>
