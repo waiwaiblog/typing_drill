@@ -1,9 +1,11 @@
 <template>
     <div class="jumbotron jumbotron-fluid">
         <div class="container text-center">
-            <h1 class="display-7 mx-auto pr-2 pb-3 d-inline-block">{{ drill[0].title }}</h1><span class="d-inline-block badge badge-success">{{ drill[0].category.category_name }}</span>
+            <h1 class="display-7 mx-auto pr-2">{{ drill[0].title }}</h1>
+            <span class="d-inline-block badge badge-success mr-3">{{ drill[0].category.category_name }}</span><img :src="difficultyImage">
+            <p>made by {{ drill[0].user.name }}</p>
             <div class="card-body text-center drill-body">
-                <button class="btn btn-primary" @click="doDrill" v-if="!isStarted">
+                <button class="btn btn-primary mt-3" @click="doDrill" v-if="!isStarted">
                     START
                 </button>
                 <p v-if="isCountDown" style="font-size: 100px;">
@@ -14,7 +16,8 @@
                     <h2 style="font-size:70px; font-family: 'Courier New', monospace; word-break: break-all; width: 100%;">
                         {{ problemWords }}
                     </h2>
-                    score:{{ typingScore }}
+                    question number:<b>{{ currentProblemNum + 1}}</b><br>
+                    score:<b>{{ typingScore }}</b>
                 </template>
                 <template v-if="isEnd">
                     <h2>Your Score</h2>
@@ -42,7 +45,7 @@
         data: function() {
             return {
                 countDownNum: 3,
-                timerNum: 10,
+                timerNum: 30,
                 missNum: 0,
                 wpm: 0,
                 isStarted: false,
@@ -91,6 +94,24 @@
                 let score = (this.wpm * 2) * (1 - this.missNum / (this.wpm * 2));
                 return isNaN(score) ? 0 : score;
             },
+            difficultyImage: function() {
+                if (this.drill[0].difficulty === 1) {
+                    return '/img/star1.gif';
+                }
+                if (this.drill[0].difficulty === 2) {
+                    return '/img/star2.gif';
+                }
+                if (this.drill[0].difficulty === 3) {
+                    return '/img/star3.gif';
+                }
+                if (this.drill[0].difficulty === 4) {
+                    return '/img/star4.gif';
+                }
+                if (this.drill[0].difficulty === 5) {
+                    return '/img/star5.gif';
+                }
+
+            }
         },
         methods: {
             doDrill: function () {
@@ -133,6 +154,8 @@
                             this.currentWordNum = 0
                             if (this.totalProblem === this.currentProblemNum) {
                                 this.isEnd = true
+                                this.postHighScore()
+                                this.postMyScore()
                             }
                         }
                     } else {
@@ -148,6 +171,7 @@
                     if(this.isEnd === true) {
                         window.clearInterval(timer)
                         console.log('カウントリセット')
+                        return;
                     }
                     if (this.timerNum <= 0) {
                         this.postHighScore()

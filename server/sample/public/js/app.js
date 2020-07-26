@@ -1939,6 +1939,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     drill: {
@@ -1951,7 +1954,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       countDownNum: 3,
-      timerNum: 10,
+      timerNum: 30,
       missNum: 0,
       wpm: 0,
       isStarted: false,
@@ -2001,6 +2004,27 @@ __webpack_require__.r(__webpack_exports__);
       //スコア
       var score = this.wpm * 2 * (1 - this.missNum / (this.wpm * 2));
       return isNaN(score) ? 0 : score;
+    },
+    difficultyImage: function difficultyImage() {
+      if (this.drill[0].difficulty === 1) {
+        return '/img/star1.gif';
+      }
+
+      if (this.drill[0].difficulty === 2) {
+        return '/img/star2.gif';
+      }
+
+      if (this.drill[0].difficulty === 3) {
+        return '/img/star3.gif';
+      }
+
+      if (this.drill[0].difficulty === 4) {
+        return '/img/star4.gif';
+      }
+
+      if (this.drill[0].difficulty === 5) {
+        return '/img/star5.gif';
+      }
     }
   },
   methods: {
@@ -2051,6 +2075,10 @@ __webpack_require__.r(__webpack_exports__);
 
             if (_this2.totalProblem === _this2.currentProblemNum) {
               _this2.isEnd = true;
+
+              _this2.postHighScore();
+
+              _this2.postMyScore();
             }
           }
         } else {
@@ -2069,6 +2097,7 @@ __webpack_require__.r(__webpack_exports__);
         if (_this3.isEnd === true) {
           window.clearInterval(timer);
           console.log('カウントリセット');
+          return;
         }
 
         if (_this3.timerNum <= 0) {
@@ -38715,12 +38744,16 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "jumbotron jumbotron-fluid" }, [
     _c("div", { staticClass: "container text-center" }, [
-      _c("h1", { staticClass: "display-7 mx-auto pr-2 pb-3 d-inline-block" }, [
+      _c("h1", { staticClass: "display-7 mx-auto pr-2" }, [
         _vm._v(_vm._s(_vm.drill[0].title))
       ]),
-      _c("span", { staticClass: "d-inline-block badge badge-success" }, [
+      _vm._v(" "),
+      _c("span", { staticClass: "d-inline-block badge badge-success mr-3" }, [
         _vm._v(_vm._s(_vm.drill[0].category.category_name))
       ]),
+      _c("img", { attrs: { src: _vm.difficultyImage } }),
+      _vm._v(" "),
+      _c("p", [_vm._v("made by " + _vm._s(_vm.drill[0].user.name))]),
       _vm._v(" "),
       _c(
         "div",
@@ -38729,7 +38762,10 @@ var render = function() {
           !_vm.isStarted
             ? _c(
                 "button",
-                { staticClass: "btn btn-primary", on: { click: _vm.doDrill } },
+                {
+                  staticClass: "btn btn-primary mt-3",
+                  on: { click: _vm.doDrill }
+                },
                 [_vm._v("\n                START\n            ")]
               )
             : _vm._e(),
@@ -38766,11 +38802,11 @@ var render = function() {
                     )
                   ]
                 ),
-                _vm._v(
-                  "\n                score:" +
-                    _vm._s(_vm.typingScore) +
-                    "\n            "
-                )
+                _vm._v("\n                question number:"),
+                _c("b", [_vm._v(_vm._s(_vm.currentProblemNum + 1))]),
+                _c("br"),
+                _vm._v("\n                score:"),
+                _c("b", [_vm._v(_vm._s(_vm.typingScore))])
               ]
             : _vm._e(),
           _vm._v(" "),
