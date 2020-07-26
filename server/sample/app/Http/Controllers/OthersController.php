@@ -13,7 +13,12 @@ class OthersController extends Controller
 {
     public function index()
     {
-        return view('index');
+        $categories = Category::all();
+        $drills = Drill::all();
+
+
+//        dd(view('index', compact(['categories', 'drills'])));
+        return view('index', compact(['categories', 'drills']));
     }
 
     public function mypage()

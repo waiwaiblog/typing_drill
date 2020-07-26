@@ -31,6 +31,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('register', require('./components/Register.vue').default);
 Vue.component('edit', require('./components/Edit.vue').default);
 Vue.component('drill-play', require('./components/DrillPlay.vue').default);
+Vue.component('top-page', require('./components/TopPage.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
