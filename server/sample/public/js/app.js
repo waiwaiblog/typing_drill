@@ -1955,6 +1955,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      endTitle: '',
       countDownNum: 3,
       timerNum: 30,
       missNum: 0,
@@ -2113,6 +2114,8 @@ __webpack_require__.r(__webpack_exports__);
       }, 1000);
     },
     postHighScore: function postHighScore() {
+      var _this4 = this;
+
       //・ドリルのハイスコア（ハイスコアと、そのユーザーID）
       //現在あるカラムと比較して大きければ入れる
       if (this.userId === 0) {
@@ -2122,7 +2125,9 @@ __webpack_require__.r(__webpack_exports__);
           high_score_user_id: guestId
         };
         var url = "/api/drill/score/".concat(this.drill[0].id);
-        axios.post(url, data).then(function (res) {})["catch"](function (error) {
+        axios.post(url, data).then(function (res) {
+          _this4.endTitle = res.data;
+        })["catch"](function (error) {
           console.log(error);
         });
       } else {
@@ -2133,12 +2138,16 @@ __webpack_require__.r(__webpack_exports__);
 
         var _url = "/api/drill/score/".concat(this.drill[0].id);
 
-        axios.post(_url, _data).then(function (res) {})["catch"](function (error) {
+        axios.post(_url, _data).then(function (res) {
+          _this4.endTitle = res.data;
+        })["catch"](function (error) {
           console.log(error);
         });
       }
     },
     postMyScore: function postMyScore() {
+      var _this5 = this;
+
       //・個人のスコア記録（スコア、ユーザーID、drillID）
       //ログインしてる場合のみ。
       if (this.userId === 0) {
@@ -2150,7 +2159,9 @@ __webpack_require__.r(__webpack_exports__);
         user_id: this.userId
       };
       var url = "/api/myscore/".concat(this.drill[0].id);
-      axios.post(url, data).then(function (res) {})["catch"](function (error) {
+      axios.post(url, data).then(function (res) {
+        _this5.endTitle = res.data;
+      })["catch"](function (error) {
         console.log(error);
       });
     }
@@ -38900,8 +38911,6 @@ var render = function() {
       _vm._v(" "),
       _c("p", [_vm._v("made by " + _vm._s(_vm.drill[0].user.name))]),
       _vm._v(" "),
-      _c("p", [_vm._v("userid " + _vm._s(_vm.userId))]),
-      _vm._v(" "),
       _c(
         "div",
         { staticClass: "card-body text-center drill-body" },
@@ -38964,8 +38973,22 @@ var render = function() {
                 _c("h2", [_vm._v(_vm._s(_vm.typingScore))]),
                 _vm._v(" "),
                 _vm.userId > 0
-                  ? _c("p", [_vm._v("Score Registered")])
-                  : _c("p", [_vm._v("Login if you want to register")]),
+                  ? _c("p", [_vm._v("スコアを登録しました")])
+                  : _c("p", [_vm._v("ログインすればスコア管理ができます")]),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  {
+                    model: {
+                      value: _vm.endTitle,
+                      callback: function($$v) {
+                        _vm.endTitle = $$v
+                      },
+                      expression: "endTitle"
+                    }
+                  },
+                  [_vm._v(_vm._s(_vm.endTitle))]
+                ),
                 _vm._v(" "),
                 _c(
                   "a",

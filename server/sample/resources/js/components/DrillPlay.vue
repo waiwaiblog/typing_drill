@@ -4,7 +4,6 @@
             <h1 class="display-7 mx-auto pr-2">{{ drill[0].title }}</h1>
             <span class="d-inline-block badge badge-success mr-3">{{ drill[0].category.category_name }}</span><img :src="difficultyImage">
             <p>made by {{ drill[0].user.name }}</p>
-            <p>userid {{ userId }}</p>
 
             <div class="card-body text-center drill-body">
                 <button class="btn btn-primary mt-3" @click="doDrill" v-if="!isStarted">
@@ -24,8 +23,9 @@
                 <template v-if="isEnd">
                     <h2>Your Score</h2>
                     <h2>{{ typingScore }}</h2>
-                    <p v-if="userId > 0">Score Registered</p>
-                    <p v-else>Login if you want to register</p>
+                    <p v-if="userId > 0">スコアを登録しました</p>
+                    <p v-else>ログインすればスコア管理ができます</p>
+                    <p v-model="endTitle">{{ endTitle }}</p>
                     <a :href="'/drills/show/' + this.drill[0].id"><button class="btn btn-success">Click Replay</button></a>
                 </template>
 
@@ -46,6 +46,7 @@
         },
         data: function() {
             return {
+                endTitle: '',
                 countDownNum: 3,
                 timerNum: 30,
                 missNum: 0,
@@ -195,7 +196,7 @@
                     const url = `/api/drill/score/${this.drill[0].id}`;
                     axios.post(url, data)
                         .then( res => {
-
+                            this.endTitle = res.data;
                         })
                         .catch(error => {
                             console.log(error);
@@ -208,7 +209,7 @@
                     const url = `/api/drill/score/${this.drill[0].id}`;
                     axios.post(url, data)
                         .then( res => {
-
+                            this.endTitle = res.data;
                         })
                         .catch(error => {
                             console.log(error);
@@ -229,7 +230,7 @@
                 const url = `/api/myscore/${this.drill[0].id}`;
                 axios.post(url, data)
                     .then(res => {
-
+                        this.endTitle = res.data;
                 })
                 .catch(error => {
                     console.log(error);
