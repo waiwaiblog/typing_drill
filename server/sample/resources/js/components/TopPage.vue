@@ -32,17 +32,17 @@
                                         <h5 class="card-title">{{ list.title }}</h5>
                                         <p class="card-text">
                                             <span class="badge badge-pill badge-success mr-2">{{ numberToCategory(list.category_id) }}</span>
-                                            {{ list.difficulty }}
+                                            <img :src="numberToDifficulty(list.difficulty)">
                                         </p>
                                         <p class="card-text">
-                                            HighScore: {{ list.high_score }}({{ list.high_score_user_id }})
+                                            HighScore: {{ list.high_score }}({{ list.high_score_user_id === null ? 'Guest' : list.score_user.name }})
                                         </p>
                                     </div>
                                     <div class="col-md-6">
                                         <p class="card-text d-flex justify-content-end">
-                                            Made by {{ list.user_id }}
+                                            Made by {{ list.user.name }}
                                         </p>
-                                        <a href="#" class="btn btn-primary float-right">Play</a>
+                                        <a :href="'/drills/show/' + list.id" class="btn btn-primary float-right">Play</a>
                                     </div>
                                 </div>
                             </div>
@@ -95,7 +95,17 @@
                         }
                     }
                 };
-            }
+            },
+            numberToDifficulty: function () {
+                return function (str) {
+                    for(let i = 0; i < this.drills.length; i++) {
+                        if(str == this.drills[i].difficulty) {
+                            return `/img/star${str}.gif`;
+                        }
+                    }
+                };
+            },
+
         },
         methods: {
             ressetting: function () {

@@ -27,4 +27,9 @@ class Drill extends Model
     {
         return $this->hasMany('App\Problem');
     }
+
+    public function score_user()
+    {
+        return $this->belongsTo('App\User', 'high_score_user_id');
+    }
 }

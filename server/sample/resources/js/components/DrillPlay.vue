@@ -4,6 +4,8 @@
             <h1 class="display-7 mx-auto pr-2">{{ drill[0].title }}</h1>
             <span class="d-inline-block badge badge-success mr-3">{{ drill[0].category.category_name }}</span><img :src="difficultyImage">
             <p>made by {{ drill[0].user.name }}</p>
+            <p>userid {{ userId }}</p>
+
             <div class="card-body text-center drill-body">
                 <button class="btn btn-primary mt-3" @click="doDrill" v-if="!isStarted">
                     START
@@ -183,19 +185,36 @@
             },
             postHighScore: function () {
                 //・ドリルのハイスコア（ハイスコアと、そのユーザーID）
-                //現在あるカラムと比較して大きければ入れる。
-                const data = {
-                    high_score: this.typingScore,
-                    high_score_user_id: this.userId
-                }
-                const url = `/api/drill/score/${this.drill[0].id}`;
-                axios.post(url, data)
-                    .then( res => {
+                //現在あるカラムと比較して大きければ入れる
+                if(this.userId === 0) {
+                    let guestId = '';
+                    const data = {
+                        high_score: this.typingScore,
+                        high_score_user_id: guestId
+                    }
+                    const url = `/api/drill/score/${this.drill[0].id}`;
+                    axios.post(url, data)
+                        .then( res => {
 
-                    })
-                .catch(error => {
-                    console.log(error);
-                })
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        })
+                } else {
+                    const data = {
+                        high_score: this.typingScore,
+                        high_score_user_id: this.userId
+                    }
+                    const url = `/api/drill/score/${this.drill[0].id}`;
+                    axios.post(url, data)
+                        .then( res => {
+
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        })
+                }
+
             },
             postMyScore: function () {
                 //・個人のスコア記録（スコア、ユーザーID、drillID）

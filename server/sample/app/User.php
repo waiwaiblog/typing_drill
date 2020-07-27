@@ -40,4 +40,9 @@ class User extends Authenticatable
     public function drills() {
         return $this->hasMany('App\Drill');
     }
+
+    public function drill_score()
+    {
+        return $this->hasMany('App\Drill');
+    }
 }

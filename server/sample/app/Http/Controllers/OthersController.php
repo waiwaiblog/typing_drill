@@ -14,10 +14,11 @@ class OthersController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $drills = Drill::with('category', 'user')->get();
+        $drills = Drill::with('category', 'user', 'score_user')->get();
 
-
+//        dd(json_decode(json_encode($drills)));
 //        dd(view('index', compact(['categories', 'drills'])));
+//        dd(json_decode(json_encode($drills)));
         return view('index', compact(['categories', 'drills']));
     }
 

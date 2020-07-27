@@ -1942,6 +1942,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     drill: {
@@ -2112,15 +2114,29 @@ __webpack_require__.r(__webpack_exports__);
     },
     postHighScore: function postHighScore() {
       //・ドリルのハイスコア（ハイスコアと、そのユーザーID）
-      //現在あるカラムと比較して大きければ入れる。
-      var data = {
-        high_score: this.typingScore,
-        high_score_user_id: this.userId
-      };
-      var url = "/api/drill/score/".concat(this.drill[0].id);
-      axios.post(url, data).then(function (res) {})["catch"](function (error) {
-        console.log(error);
-      });
+      //現在あるカラムと比較して大きければ入れる
+      if (this.userId === 0) {
+        var guestId = '';
+        var data = {
+          high_score: this.typingScore,
+          high_score_user_id: guestId
+        };
+        var url = "/api/drill/score/".concat(this.drill[0].id);
+        axios.post(url, data).then(function (res) {})["catch"](function (error) {
+          console.log(error);
+        });
+      } else {
+        var _data = {
+          high_score: this.typingScore,
+          high_score_user_id: this.userId
+        };
+
+        var _url = "/api/drill/score/".concat(this.drill[0].id);
+
+        axios.post(_url, _data).then(function (res) {})["catch"](function (error) {
+          console.log(error);
+        });
+      }
     },
     postMyScore: function postMyScore() {
       //・個人のスコア記録（スコア、ユーザーID、drillID）
@@ -3255,6 +3271,15 @@ __webpack_require__.r(__webpack_exports__);
         for (var i = 0; i < this.categories.length; i++) {
           if (str === this.categories[i].id) {
             return this.categories[i].category_name;
+          }
+        }
+      };
+    },
+    numberToDifficulty: function numberToDifficulty() {
+      return function (str) {
+        for (var i = 0; i < this.drills.length; i++) {
+          if (str == this.drills[i].difficulty) {
+            return "/img/star".concat(str, ".gif");
           }
         }
       };
@@ -38875,6 +38900,8 @@ var render = function() {
       _vm._v(" "),
       _c("p", [_vm._v("made by " + _vm._s(_vm.drill[0].user.name))]),
       _vm._v(" "),
+      _c("p", [_vm._v("userid " + _vm._s(_vm.userId))]),
+      _vm._v(" "),
       _c(
         "div",
         { staticClass: "card-body text-center drill-body" },
@@ -40714,11 +40741,12 @@ var render = function() {
                             )
                           ]
                         ),
-                        _vm._v(
-                          "\n                                        " +
-                            _vm._s(list.difficulty) +
-                            "\n                                    "
-                        )
+                        _vm._v(" "),
+                        _c("img", {
+                          attrs: {
+                            src: _vm.numberToDifficulty(list.difficulty)
+                          }
+                        })
                       ]),
                       _vm._v(" "),
                       _c("p", { staticClass: "card-text" }, [
@@ -40726,7 +40754,11 @@ var render = function() {
                           "\n                                        HighScore: " +
                             _vm._s(list.high_score) +
                             "(" +
-                            _vm._s(list.high_score_user_id) +
+                            _vm._s(
+                              list.high_score_user_id === null
+                                ? "Guest"
+                                : list.score_user.name
+                            ) +
                             ")\n                                    "
                         )
                       ])
@@ -40739,7 +40771,7 @@ var render = function() {
                         [
                           _vm._v(
                             "\n                                        Made by " +
-                              _vm._s(list.user_id) +
+                              _vm._s(list.user.name) +
                               "\n                                    "
                           )
                         ]
@@ -40749,7 +40781,7 @@ var render = function() {
                         "a",
                         {
                           staticClass: "btn btn-primary float-right",
-                          attrs: { href: "#" }
+                          attrs: { href: "/drills/show/" + list.id }
                         },
                         [_vm._v("Play")]
                       )
