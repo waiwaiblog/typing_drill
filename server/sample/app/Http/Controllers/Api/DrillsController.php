@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Category;
 use App\Drill;
 use App\Http\Controllers\Controller;
 use App\Score;
@@ -46,5 +47,13 @@ class DrillsController extends Controller
                 return '自身のハイスコアは更新されませんでした';
             }
         }
+    }
+
+    public function getDrills()
+    {
+        $drills = Drill::with('category', 'user', 'score_user')->latest()->paginate(5);
+//        dd(json_decode(json_encode($drills)));
+//        dd(view('index', compact(['categories', 'drills'])));
+        return ['drills' => $drills];
     }
 }

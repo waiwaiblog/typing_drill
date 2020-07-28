@@ -4,11 +4,13 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 import axios from 'axios';
+import _ from 'lodash';
 
 require('./bootstrap');
 
 window.Vue = require('vue');
 window.axios = require('axios');
+window._ = require('lodash');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 
@@ -32,6 +34,7 @@ Vue.component('register', require('./components/Register.vue').default);
 Vue.component('edit', require('./components/Edit.vue').default);
 Vue.component('drill-play', require('./components/DrillPlay.vue').default);
 Vue.component('top-page', require('./components/TopPage.vue').default);
+Vue.component('top-page-test', require('./components/TopPageTest.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

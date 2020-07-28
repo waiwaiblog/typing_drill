@@ -20,3 +20,8 @@ Route::post('/drill/score/{id}', 'Api\DrillsController@highScore')->name('highSc
 
 
 Route::post('/myscore/{id}', 'Api\DrillsController@score')->name('api.score');
+
+
+Route::get('/lists', 'Api\DrillsController@getDrills')->name('api.get');
+
+
