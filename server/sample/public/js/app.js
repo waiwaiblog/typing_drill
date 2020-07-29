@@ -1956,6 +1956,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     drill: {
@@ -1968,6 +1969,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       endTitle: '',
+      endTitle2: '',
       countDownNum: 3,
       timerNum: 30,
       missNum: 0,
@@ -2069,6 +2071,8 @@ __webpack_require__.r(__webpack_exports__);
     showFirstProblem: function showFirstProblem() {
       var _this2 = this;
 
+      var okSound = new Audio('../../sounds/keyboard3.mp3');
+      var ngSound = new Audio('../../sounds/incorrect2.mp3');
       window.addEventListener('keypress', function (e) {
         if (_this2.isEnd === true) {
           e.preventDefault();
@@ -2079,6 +2083,9 @@ __webpack_require__.r(__webpack_exports__);
 
         if (e.key === _this2.problemWords[_this2.currentWordNum]) {
           console.log('正解！');
+
+          _this2.soundPlay(okSound);
+
           ++_this2.currentWordNum;
           ++_this2.wpm;
           console.log('現在回答の文字数目:' + _this2.currentWordNum);
@@ -2098,6 +2105,9 @@ __webpack_require__.r(__webpack_exports__);
           }
         } else {
           console.log('不正解');
+
+          _this2.soundPlay(ngSound);
+
           ++_this2.missNum;
           console.log('現在回答の文字数目:' + _this2.currentWordNum);
         }
@@ -2151,7 +2161,7 @@ __webpack_require__.r(__webpack_exports__);
         var _url = "/api/drill/score/".concat(this.drill[0].id);
 
         axios.post(_url, _data).then(function (res) {
-          _this4.endTitle = res.data;
+          _this4.endTitle2 = res.data;
         })["catch"](function (error) {
           console.log(error);
         });
@@ -2176,6 +2186,10 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error);
       });
+    },
+    soundPlay: function soundPlay(sound) {
+      sound.currentTime = 0;
+      sound.play();
     }
   }
 });
@@ -40756,6 +40770,20 @@ var render = function() {
                     }
                   },
                   [_vm._v(_vm._s(_vm.endTitle))]
+                ),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  {
+                    model: {
+                      value: _vm.endTitle2,
+                      callback: function($$v) {
+                        _vm.endTitle2 = $$v
+                      },
+                      expression: "endTitle2"
+                    }
+                  },
+                  [_vm._v(_vm._s(_vm.endTitle2))]
                 ),
                 _vm._v(" "),
                 _c(

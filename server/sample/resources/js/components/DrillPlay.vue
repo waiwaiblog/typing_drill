@@ -26,6 +26,7 @@
                     <p v-if="userId > 0">スコアを登録しました</p>
                     <p v-else>ログインすればスコア管理ができます</p>
                     <p v-model="endTitle">{{ endTitle }}</p>
+                    <p v-model="endTitle2">{{ endTitle2 }}</p>
                     <a :href="'/drills/show/' + this.drill[0].id"><button class="btn btn-success">Click Replay</button></a>
                 </template>
 
@@ -47,6 +48,7 @@
         data: function() {
             return {
                 endTitle: '',
+                endTitle2: '',
                 countDownNum: 3,
                 timerNum: 30,
                 missNum: 0,
@@ -138,6 +140,9 @@
                 }, 1000)
             },
             showFirstProblem: function () {
+                const okSound = new Audio('../../sounds/keyboard3.mp3')
+                const ngSound = new Audio('../../sounds/incorrect2.mp3')
+
                 window.addEventListener('keypress', e => {
                     if (this.isEnd === true) {
                         e.preventDefault()
@@ -146,6 +151,7 @@
                     console.log(e.key);
                     if (e.key === this.problemWords[this.currentWordNum]) {
                         console.log('正解！')
+                        this.soundPlay(okSound)
                         ++this.currentWordNum
 
                         ++this.wpm
@@ -163,6 +169,7 @@
                         }
                     } else {
                         console.log('不正解')
+                        this.soundPlay(ngSound)
                         ++this.missNum
                         console.log('現在回答の文字数目:' + this.currentWordNum)
                     }
@@ -209,7 +216,7 @@
                     const url = `/api/drill/score/${this.drill[0].id}`;
                     axios.post(url, data)
                         .then( res => {
-                            this.endTitle = res.data;
+                            this.endTitle2 = res.data;
                         })
                         .catch(error => {
                             console.log(error);
@@ -236,6 +243,10 @@
                     console.log(error);
                 })
 
+            },
+            soundPlay: function (sound) {
+                sound.currentTime = 0
+                sound.play()
             }
 
         }
