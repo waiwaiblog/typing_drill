@@ -51,7 +51,11 @@
                 </div>
             </div>
         </div>
+        <div class="loading-animation pt-4" v-if="itemLoading">
+            <img src="/img/loading.gif">
+        </div>
     </div>
+    <!-- ローディングアニメーション -->
 </template>
 
 <script>
@@ -60,14 +64,15 @@
             categories: {
                 type: Array
             },
-            drills: {
-                type: Array
-            }
         },
         data: function() {
             return {
                 selectCategoryId: null,
                 selectDifficultyId: null,
+                itemLoading: false,
+                load: true,
+                page: 1,
+                drills: [],
             }
         },
         computed: {
@@ -76,7 +81,7 @@
 
                 if(this.selectCategoryId) {
                     lists = lists.filter( list => {
-                       return list.category_id === this.selectCategoryId;
+                        return list.category_id === this.selectCategoryId;
                     });
                 }
 
@@ -111,7 +116,53 @@
             ressetting: function () {
                 this.selectCategoryId = null;
                 this.selectDifficultyId = null;
-            }
+            },
+            clearVar() {
+                this.itemLoading = false
+                this.load = true
+                this.page = 1
+                this.drills = []
+            },
+            async getItems() {
+                if (this.load) {
+                    if (!this.itemLoading) {
+                        this.itemLoading = true
+                        try {
+                            const response = await axios.get('api/lists?page=' + this.page);
+                            if (response.data.drills.last_page == this.page) this.load = false;
+                            if (response.data.drills.data) {
+                                await response.data.drills.data.forEach((n, i) => {
+                                    this.drills.push(n)
+                                })
+                            }
+                            this.page += 1;
+                        } catch (e) {
+                            console.log(e.response)
+                            this.load = false
+                            this.itemLoading = false
+                        } finally {
+                            this.itemLoading = false
+                        }
+                    }
+                }
+            },
+        },
+        mounted() {
+            this.clearVar();
+            window.addEventListener('scroll', _.throttle(() => {
+                let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight == document.documentElement.offsetHeight;
+                if (bottomOfWindow) this.getItems();
+            }, 200, { trailing: true, leading: true }));
+            this.getItems();
         },
     }
 </script>
+
+<style scoped lang="scss">
+    .loading-animation {
+        text-align: center;
+        img {
+            width: 40px;
+        }
+    }
+</style>
