@@ -1,14 +1,15 @@
 <template>
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="display-7 text-center pb-3">EditWorkBook</h1>
+            <h1 class="display-7 text-center pb-3">問題を編集する</h1>
+            <p class="text-center text-danger">問題６〜１０以外は入力必須項目です。<br>問題は英数字・記号・半角スペースのみです。</p>
             <form :action="'/update/' + newEvent.id" method="post">
                 <slot></slot>
                 <input type="hidden" name="id" v-model="newEvent.id">
                 <div class="form-group row justify-content-center">
-                    <label for="validationTitle" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">Title</label>
+                    <label for="validationTitle" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">タイトル</label>
                     <div class="col-md-7 col-sm-10 col-xs-12">
-                        <input v-model="newEvent.title" type="text" :class="{'form-control': true, 'is-valid': checkValidation.title}" id="validationTitle" name="title" required placeholder="required">
+                        <input v-model="newEvent.title" type="text" :class="{'form-control': true, 'is-valid': checkValidation.title}" id="validationTitle" name="title" required>
                         <div class="invalid-feedback">
 
                         </div>
@@ -16,10 +17,10 @@
                 </div>
 
                 <div class="form-group row justify-content-center">
-                    <label for="validationCategory" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">Category</label>
+                    <label for="validationCategory" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">ジャンル</label>
                     <div class="col-md-7 col-sm-10 col-xs-12">
                         <select v-model="newEvent.category" :class="{'custom-select': true, 'is-valid': checkValidation.category}" id="validationCategory" name="category_id" required>
-                            <option value="">Select Category(required)</option>
+                            <option value="">ジャンルを選択してください</option>
                             <option :value="c.id" v-for="c in categories" :key="c.id" :selected="c.id == newEvent.category">{{ c.category_name }}</option>
                         </select>
                         <div class="invalid-feedback">
@@ -28,7 +29,7 @@
                     </div>
                 </div>
                 <div class="form-group row justify-content-center">
-                    <label for="validationDifficulty" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">Difficulty</label>
+                    <label for="validationDifficulty" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">難易度</label>
                     <div class="d-flex col-md-7 col-sm-10 col-xs-12 align-items-center">
                         <input v-model="newEvent.difficulty" type="hidden" id="validationDifficulty" name="difficulty">
                         {{ checkDifficulty }}
@@ -36,52 +37,52 @@
                 </div>
 
                 <div class="form-group row justify-content-center">
-                    <label for="validationQuestion1" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">Question1</label>
+                    <label for="validationQuestion1" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">問題1</label>
                     <div class="col-md-7 col-sm-10 col-xs-12">
-                        <input v-model="newEvent.question1" type="text" :class="{'form-control': true, 'is-valid': checkValidation.question1 }" id="validationQuestion1" name="question1" required placeholder="required">
+                        <input v-model="newEvent.question1" type="text" :class="{'form-control': true, 'is-valid': checkValidation.question1 }" id="validationQuestion1" name="question1" required>
                         <div class="invalid-feedback">
 
                         </div>
                     </div>
                 </div>
                 <div class="form-group row justify-content-center">
-                    <label for="validationQuestion2" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">Question2</label>
+                    <label for="validationQuestion2" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">問題2</label>
                     <div class="col-md-7 col-sm-10 col-xs-12">
-                        <input v-model="newEvent.question2" type="text" :class="{'form-control': true, 'is-valid': checkValidation.question2}" id="validationQuestion2" name="question2" required placeholder="required">
+                        <input v-model="newEvent.question2" type="text" :class="{'form-control': true, 'is-valid': checkValidation.question2}" id="validationQuestion2" name="question2" required>
                         <div class="invalid-feedback">
 
                         </div>
                     </div>
                 </div>
                 <div class="form-group row justify-content-center">
-                    <label for="validationQuestion3" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">Question3</label>
+                    <label for="validationQuestion3" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">問題3</label>
                     <div class="col-md-7 col-sm-10 col-xs-12">
-                        <input v-model="newEvent.question3" type="text" :class="{'form-control': true, 'is-valid': checkValidation.question3}" id="validationQuestion3" name="question3" required placeholder="required">
+                        <input v-model="newEvent.question3" type="text" :class="{'form-control': true, 'is-valid': checkValidation.question3}" id="validationQuestion3" name="question3" required>
                         <div class="invalid-feedback">
 
                         </div>
                     </div>
                 </div>
                 <div class="form-group row justify-content-center">
-                    <label for="validationQuestion4" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">Question4</label>
+                    <label for="validationQuestion4" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">問題4</label>
                     <div class="col-md-7 col-sm-10 col-xs-12">
-                        <input v-model="newEvent.question4" type="text" :class="{'form-control': true, 'is-valid': checkValidation.question4}" id="validationQuestion4" name="question4" required placeholder="required">
+                        <input v-model="newEvent.question4" type="text" :class="{'form-control': true, 'is-valid': checkValidation.question4}" id="validationQuestion4" name="question4" required>
                         <div class="invalid-feedback">
 
                         </div>
                     </div>
                 </div>
                 <div class="form-group row justify-content-center">
-                    <label for="validationQuestion5" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">Question5</label>
+                    <label for="validationQuestion5" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">問題5</label>
                     <div class="col-md-7 col-sm-10 col-xs-12">
-                        <input v-model="newEvent.question5" type="text" :class="{'form-control': true, 'is-valid': checkValidation.question5}" id="validationQuestion5" name="question5" required placeholder="required">
+                        <input v-model="newEvent.question5" type="text" :class="{'form-control': true, 'is-valid': checkValidation.question5}" id="validationQuestion5" name="question5" required>
                         <div class="invalid-feedback">
 
                         </div>
                     </div>
                 </div>
                 <div class="form-group row justify-content-center">
-                    <label for="validationQuestion6" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">Question6</label>
+                    <label for="validationQuestion6" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">問題6</label>
                     <div class="col-md-7 col-sm-10 col-xs-12">
                         <input v-model="newEvent.question6" type="text" :class="{'form-control': true, 'is-valid': throughValidation.question6}" id="validationQuestion6" name="question6" :readonly="check6">
                         <div class="invalid-feedback">
@@ -90,7 +91,7 @@
                     </div>
                 </div>
                 <div class="form-group row justify-content-center">
-                    <label for="validationQuestion7" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">Question7</label>
+                    <label for="validationQuestion7" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">問題7</label>
                     <div class="col-md-7 col-sm-10 col-xs-12">
                         <input v-model="newEvent.question7" type="text" :class="{'form-control': true, 'is-valid': throughValidation.question7}" id="validationQuestion7" name="question7" :readonly="check7">
                         <div class="invalid-feedback">
@@ -99,7 +100,7 @@
                     </div>
                 </div>
                 <div class="form-group row justify-content-center">
-                    <label for="validationQuestion8" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">Question8</label>
+                    <label for="validationQuestion8" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">問題8</label>
                     <div class="col-md-7 col-sm-10 col-xs-12">
                         <input v-model="newEvent.question8" type="text" :class="{'form-control': true, 'is-valid': throughValidation.question8}" id="validationQuestion8" name="question8" :readonly="check8">
                         <div class="invalid-feedback">
@@ -108,7 +109,7 @@
                     </div>
                 </div>
                 <div class="form-group row justify-content-center">
-                    <label for="validationQuestion9" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">Question9</label>
+                    <label for="validationQuestion9" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">問題9</label>
                     <div class="col-md-7 col-sm-10 col-xs-12">
                         <input v-model="newEvent.question9" type="text" :class="{'form-control': true, 'is-valid': throughValidation.question9}" id="validationQuestion9" name="question9" :readonly="check9">
                         <div class="invalid-feedback">
@@ -117,7 +118,7 @@
                     </div>
                 </div>
                 <div class="form-group row justify-content-center">
-                    <label for="validationQuestion10" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">Question10</label>
+                    <label for="validationQuestion10" class="mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label">問題10</label>
                     <div class="col-md-7 col-sm-10 col-xs-12">
                         <input v-model="newEvent.question10" type="text" :class="{'form-control': true, 'is-valid': throughValidation.question10}" id="validationQuestion10" name="question10" :readonly="check10">
                         <div class="invalid-feedback">
@@ -130,7 +131,7 @@
 
                 <div class="form-group row justify-content-center">
                     <div class="mx-auto col-md-2 col-sm-10 col-xs-12">
-                        <button type="submit" class="btn-block btn btn-primary" :disabled="!checkValid">Create</button>
+                        <button type="submit" class="btn-block btn btn-primary" :disabled="!checkValid">編集する</button>
                     </div>
                 </div>
             </form>
@@ -299,19 +300,19 @@
                 count += this.newEvent.question10.length
                 if(count === 0) {
                     return '自動で判定します'
-                } else if(count < 100) {
+                } else if(count < 40) {
                     this.newEvent.difficulty = 1
                     return '★☆☆☆☆'
-                } else if(count >= 100 && count < 150) {
+                } else if(count >= 40 && count < 70) {
                     this.newEvent.difficulty = 2
                     return '★★☆☆☆'
-                } else if(count >= 150 && count < 200) {
+                } else if(count >= 70 && count < 100) {
                     this.newEvent.difficulty = 3
                     return '★★★☆☆'
-                } else if(count >= 200 && count < 300) {
+                } else if(count >= 100 && count < 200) {
                     this.newEvent.difficulty = 4
                     return '★★★★☆'
-                } else if(count >= 300) {
+                } else if(count >= 200) {
                     this.newEvent.difficulty = 5
                     return '★★★★★'
                 }

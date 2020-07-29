@@ -2331,6 +2331,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['categories', 'drill'],
   data: function data() {
@@ -2509,19 +2510,19 @@ __webpack_require__.r(__webpack_exports__);
 
       if (count === 0) {
         return '自動で判定します';
-      } else if (count < 100) {
+      } else if (count < 40) {
         this.newEvent.difficulty = 1;
         return '★☆☆☆☆';
-      } else if (count >= 100 && count < 150) {
+      } else if (count >= 40 && count < 70) {
         this.newEvent.difficulty = 2;
         return '★★☆☆☆';
-      } else if (count >= 150 && count < 200) {
+      } else if (count >= 70 && count < 100) {
         this.newEvent.difficulty = 3;
         return '★★★☆☆';
-      } else if (count >= 200 && count < 300) {
+      } else if (count >= 100 && count < 200) {
         this.newEvent.difficulty = 4;
         return '★★★★☆';
-      } else if (count >= 300) {
+      } else if (count >= 200) {
         this.newEvent.difficulty = 5;
         return '★★★★★';
       }
@@ -2878,6 +2879,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['categories', 'errors'],
   data: function data() {
@@ -3055,19 +3057,19 @@ __webpack_require__.r(__webpack_exports__);
 
       if (count === 0) {
         return '自動で判定します';
-      } else if (count < 100) {
+      } else if (count < 40) {
         this.newEvent.difficulty = 1;
         return '★☆☆☆☆';
-      } else if (count >= 100 && count < 150) {
+      } else if (count >= 40 && count < 70) {
         this.newEvent.difficulty = 2;
         return '★★☆☆☆';
-      } else if (count >= 150 && count < 200) {
+      } else if (count >= 70 && count < 100) {
         this.newEvent.difficulty = 3;
         return '★★★☆☆';
-      } else if (count >= 200 && count < 300) {
+      } else if (count >= 100 && count < 200) {
         this.newEvent.difficulty = 4;
         return '★★★★☆';
-      } else if (count >= 300) {
+      } else if (count >= 200) {
         this.newEvent.difficulty = 5;
         return '★★★★★';
       }
@@ -3206,6 +3208,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
 //
 //
 //
@@ -40797,8 +40800,10 @@ var render = function() {
   return _c("div", { staticClass: "jumbotron jumbotron-fluid" }, [
     _c("div", { staticClass: "container" }, [
       _c("h1", { staticClass: "display-7 text-center pb-3" }, [
-        _vm._v("EditWorkBook")
+        _vm._v("問題を編集する")
       ]),
+      _vm._v(" "),
+      _vm._m(0),
       _vm._v(" "),
       _c(
         "form",
@@ -40835,7 +40840,7 @@ var render = function() {
                   "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
                 attrs: { for: "validationTitle" }
               },
-              [_vm._v("Title")]
+              [_vm._v("タイトル")]
             ),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-7 col-sm-10 col-xs-12" }, [
@@ -40856,8 +40861,7 @@ var render = function() {
                   type: "text",
                   id: "validationTitle",
                   name: "title",
-                  required: "",
-                  placeholder: "required"
+                  required: ""
                 },
                 domProps: { value: _vm.newEvent.title },
                 on: {
@@ -40882,7 +40886,7 @@ var render = function() {
                   "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
                 attrs: { for: "validationCategory" }
               },
-              [_vm._v("Category")]
+              [_vm._v("ジャンル")]
             ),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-7 col-sm-10 col-xs-12" }, [
@@ -40928,7 +40932,7 @@ var render = function() {
                 },
                 [
                   _c("option", { attrs: { value: "" } }, [
-                    _vm._v("Select Category(required)")
+                    _vm._v("ジャンルを選択してください")
                   ]),
                   _vm._v(" "),
                   _vm._l(_vm.categories, function(c) {
@@ -40960,7 +40964,7 @@ var render = function() {
                   "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
                 attrs: { for: "validationDifficulty" }
               },
-              [_vm._v("Difficulty")]
+              [_vm._v("難易度")]
             ),
             _vm._v(" "),
             _c(
@@ -41011,7 +41015,7 @@ var render = function() {
                   "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
                 attrs: { for: "validationQuestion1" }
               },
-              [_vm._v("Question1")]
+              [_vm._v("問題1")]
             ),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-7 col-sm-10 col-xs-12" }, [
@@ -41032,8 +41036,7 @@ var render = function() {
                   type: "text",
                   id: "validationQuestion1",
                   name: "question1",
-                  required: "",
-                  placeholder: "required"
+                  required: ""
                 },
                 domProps: { value: _vm.newEvent.question1 },
                 on: {
@@ -41058,7 +41061,7 @@ var render = function() {
                   "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
                 attrs: { for: "validationQuestion2" }
               },
-              [_vm._v("Question2")]
+              [_vm._v("問題2")]
             ),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-7 col-sm-10 col-xs-12" }, [
@@ -41079,8 +41082,7 @@ var render = function() {
                   type: "text",
                   id: "validationQuestion2",
                   name: "question2",
-                  required: "",
-                  placeholder: "required"
+                  required: ""
                 },
                 domProps: { value: _vm.newEvent.question2 },
                 on: {
@@ -41105,7 +41107,7 @@ var render = function() {
                   "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
                 attrs: { for: "validationQuestion3" }
               },
-              [_vm._v("Question3")]
+              [_vm._v("問題3")]
             ),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-7 col-sm-10 col-xs-12" }, [
@@ -41126,8 +41128,7 @@ var render = function() {
                   type: "text",
                   id: "validationQuestion3",
                   name: "question3",
-                  required: "",
-                  placeholder: "required"
+                  required: ""
                 },
                 domProps: { value: _vm.newEvent.question3 },
                 on: {
@@ -41152,7 +41153,7 @@ var render = function() {
                   "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
                 attrs: { for: "validationQuestion4" }
               },
-              [_vm._v("Question4")]
+              [_vm._v("問題4")]
             ),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-7 col-sm-10 col-xs-12" }, [
@@ -41173,8 +41174,7 @@ var render = function() {
                   type: "text",
                   id: "validationQuestion4",
                   name: "question4",
-                  required: "",
-                  placeholder: "required"
+                  required: ""
                 },
                 domProps: { value: _vm.newEvent.question4 },
                 on: {
@@ -41199,7 +41199,7 @@ var render = function() {
                   "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
                 attrs: { for: "validationQuestion5" }
               },
-              [_vm._v("Question5")]
+              [_vm._v("問題5")]
             ),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-7 col-sm-10 col-xs-12" }, [
@@ -41220,8 +41220,7 @@ var render = function() {
                   type: "text",
                   id: "validationQuestion5",
                   name: "question5",
-                  required: "",
-                  placeholder: "required"
+                  required: ""
                 },
                 domProps: { value: _vm.newEvent.question5 },
                 on: {
@@ -41246,7 +41245,7 @@ var render = function() {
                   "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
                 attrs: { for: "validationQuestion6" }
               },
-              [_vm._v("Question6")]
+              [_vm._v("問題6")]
             ),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-7 col-sm-10 col-xs-12" }, [
@@ -41292,7 +41291,7 @@ var render = function() {
                   "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
                 attrs: { for: "validationQuestion7" }
               },
-              [_vm._v("Question7")]
+              [_vm._v("問題7")]
             ),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-7 col-sm-10 col-xs-12" }, [
@@ -41338,7 +41337,7 @@ var render = function() {
                   "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
                 attrs: { for: "validationQuestion8" }
               },
-              [_vm._v("Question8")]
+              [_vm._v("問題8")]
             ),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-7 col-sm-10 col-xs-12" }, [
@@ -41384,7 +41383,7 @@ var render = function() {
                   "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
                 attrs: { for: "validationQuestion9" }
               },
-              [_vm._v("Question9")]
+              [_vm._v("問題9")]
             ),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-7 col-sm-10 col-xs-12" }, [
@@ -41430,7 +41429,7 @@ var render = function() {
                   "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
                 attrs: { for: "validationQuestion10" }
               },
-              [_vm._v("Question10")]
+              [_vm._v("問題10")]
             ),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-7 col-sm-10 col-xs-12" }, [
@@ -41476,7 +41475,7 @@ var render = function() {
                   staticClass: "btn-block btn btn-primary",
                   attrs: { type: "submit", disabled: !_vm.checkValid }
                 },
-                [_vm._v("Create")]
+                [_vm._v("編集する")]
               )
             ])
           ])
@@ -41486,7 +41485,18 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "text-center text-danger" }, [
+      _vm._v("問題６〜１０以外は入力必須項目です。"),
+      _c("br"),
+      _vm._v("問題は英数字・記号・半角スペースのみです。")
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -41558,8 +41568,10 @@ var render = function() {
   return _c("div", { staticClass: "jumbotron jumbotron-fluid" }, [
     _c("div", { staticClass: "container" }, [
       _c("h1", { staticClass: "display-7 text-center pb-3" }, [
-        _vm._v("CreateWorkBook")
+        _vm._v("問題を作成する")
       ]),
+      _vm._v(" "),
+      _vm._m(0),
       _vm._v(" "),
       _c(
         "form",
@@ -41575,7 +41587,7 @@ var render = function() {
                   "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
                 attrs: { for: "validationTitle" }
               },
-              [_vm._v("Title")]
+              [_vm._v("タイトル")]
             ),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-7 col-sm-10 col-xs-12" }, [
@@ -41596,8 +41608,7 @@ var render = function() {
                   type: "text",
                   id: "validationTitle",
                   name: "title",
-                  required: "",
-                  placeholder: "required"
+                  required: ""
                 },
                 domProps: { value: _vm.newEvent.title },
                 on: {
@@ -41628,7 +41639,7 @@ var render = function() {
                   "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
                 attrs: { for: "validationCategory" }
               },
-              [_vm._v("Category")]
+              [_vm._v("ジャンル")]
             ),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-7 col-sm-10 col-xs-12" }, [
@@ -41674,7 +41685,7 @@ var render = function() {
                 },
                 [
                   _c("option", { attrs: { value: "" } }, [
-                    _vm._v("Select Category(required)")
+                    _vm._v("ジャンルを選択してください")
                   ]),
                   _vm._v(" "),
                   _vm._l(_vm.categories, function(c) {
@@ -41706,7 +41717,7 @@ var render = function() {
                   "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
                 attrs: { for: "validationDifficulty" }
               },
-              [_vm._v("Difficulty")]
+              [_vm._v("難易度")]
             ),
             _vm._v(" "),
             _c(
@@ -41757,7 +41768,7 @@ var render = function() {
                   "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
                 attrs: { for: "validationQuestion1" }
               },
-              [_vm._v("Question1")]
+              [_vm._v("問題1")]
             ),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-7 col-sm-10 col-xs-12" }, [
@@ -41778,8 +41789,7 @@ var render = function() {
                   type: "text",
                   id: "validationQuestion1",
                   name: "question1",
-                  required: "",
-                  placeholder: "required"
+                  required: ""
                 },
                 domProps: { value: _vm.newEvent.question1 },
                 on: {
@@ -41810,7 +41820,7 @@ var render = function() {
                   "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
                 attrs: { for: "validationQuestion2" }
               },
-              [_vm._v("Question2")]
+              [_vm._v("問題2")]
             ),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-7 col-sm-10 col-xs-12" }, [
@@ -41831,8 +41841,7 @@ var render = function() {
                   type: "text",
                   id: "validationQuestion2",
                   name: "question2",
-                  required: "",
-                  placeholder: "required"
+                  required: ""
                 },
                 domProps: { value: _vm.newEvent.question2 },
                 on: {
@@ -41863,7 +41872,7 @@ var render = function() {
                   "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
                 attrs: { for: "validationQuestion3" }
               },
-              [_vm._v("Question3")]
+              [_vm._v("問題3")]
             ),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-7 col-sm-10 col-xs-12" }, [
@@ -41884,8 +41893,7 @@ var render = function() {
                   type: "text",
                   id: "validationQuestion3",
                   name: "question3",
-                  required: "",
-                  placeholder: "required"
+                  required: ""
                 },
                 domProps: { value: _vm.newEvent.question3 },
                 on: {
@@ -41916,7 +41924,7 @@ var render = function() {
                   "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
                 attrs: { for: "validationQuestion4" }
               },
-              [_vm._v("Question4")]
+              [_vm._v("問題4")]
             ),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-7 col-sm-10 col-xs-12" }, [
@@ -41937,8 +41945,7 @@ var render = function() {
                   type: "text",
                   id: "validationQuestion4",
                   name: "question4",
-                  required: "",
-                  placeholder: "required"
+                  required: ""
                 },
                 domProps: { value: _vm.newEvent.question4 },
                 on: {
@@ -41969,7 +41976,7 @@ var render = function() {
                   "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
                 attrs: { for: "validationQuestion5" }
               },
-              [_vm._v("Question5")]
+              [_vm._v("問題5")]
             ),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-7 col-sm-10 col-xs-12" }, [
@@ -41990,8 +41997,7 @@ var render = function() {
                   type: "text",
                   id: "validationQuestion5",
                   name: "question5",
-                  required: "",
-                  placeholder: "required"
+                  required: ""
                 },
                 domProps: { value: _vm.newEvent.question5 },
                 on: {
@@ -42059,7 +42065,7 @@ var render = function() {
                           "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
                         attrs: { for: "validationQuestion6" }
                       },
-                      [_vm._v("Question6")]
+                      [_vm._v("問題6")]
                     ),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-7 col-sm-10 col-xs-12" }, [
@@ -42119,7 +42125,7 @@ var render = function() {
                           "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
                         attrs: { for: "validationQuestion7" }
                       },
-                      [_vm._v("Question7")]
+                      [_vm._v("問題7")]
                     ),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-7 col-sm-10 col-xs-12" }, [
@@ -42179,7 +42185,7 @@ var render = function() {
                           "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
                         attrs: { for: "validationQuestion8" }
                       },
-                      [_vm._v("Question8")]
+                      [_vm._v("問題8")]
                     ),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-7 col-sm-10 col-xs-12" }, [
@@ -42239,7 +42245,7 @@ var render = function() {
                           "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
                         attrs: { for: "validationQuestion9" }
                       },
-                      [_vm._v("Question9")]
+                      [_vm._v("問題9")]
                     ),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-7 col-sm-10 col-xs-12" }, [
@@ -42299,7 +42305,7 @@ var render = function() {
                           "mr-lg-3 mr-md-5 col-md-1 col-sm-10 col-form-label",
                         attrs: { for: "validationQuestion10" }
                       },
-                      [_vm._v("Question10")]
+                      [_vm._v("問題10")]
                     ),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-7 col-sm-10 col-xs-12" }, [
@@ -42358,7 +42364,7 @@ var render = function() {
                   staticClass: "btn-block btn btn-primary",
                   attrs: { type: "submit", disabled: !_vm.checkValid }
                 },
-                [_vm._v("Create")]
+                [_vm._v("登録する")]
               )
             ])
           ])
@@ -42368,7 +42374,18 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "text-center text-danger" }, [
+      _vm._v("問題６〜１０以外は入力必須項目です。"),
+      _c("br"),
+      _vm._v("問題は英数字・記号・半角スペースのみです。")
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -42426,7 +42443,7 @@ var render = function() {
               _c(
                 "option",
                 { attrs: { disabled: "" }, domProps: { value: null } },
-                [_vm._v("Select Category")]
+                [_vm._v("ジャンルで絞る")]
               ),
               _vm._v(" "),
               _vm._l(_vm.categories, function(category, index) {
@@ -42474,7 +42491,7 @@ var render = function() {
               _c(
                 "option",
                 { attrs: { disabled: "" }, domProps: { value: null } },
-                [_vm._v("Select Difficulty")]
+                [_vm._v("難易度で絞る")]
               ),
               _vm._v(" "),
               _c("option", { attrs: { value: "1" } }, [_vm._v("★☆☆☆☆")]),
@@ -42498,7 +42515,7 @@ var render = function() {
               staticStyle: { width: "100%" },
               on: { click: _vm.ressetting }
             },
-            [_vm._v("clear")]
+            [_vm._v("クリア")]
           )
         ])
       ]),
@@ -42537,19 +42554,23 @@ var render = function() {
                         })
                       ]),
                       _vm._v(" "),
-                      _c("p", { staticClass: "card-text" }, [
-                        _vm._v(
-                          "\n                                        HighScore: " +
-                            _vm._s(list.high_score) +
-                            "(" +
-                            _vm._s(
-                              list.high_score_user_id === null
-                                ? "Guest"
-                                : list.score_user.name
-                            ) +
-                            ")\n                                    "
-                        )
-                      ])
+                      list.high_score !== null
+                        ? _c("p", { staticClass: "card-text" }, [
+                            _vm._v(
+                              "\n                                        HighScore: " +
+                                _vm._s(list.high_score) +
+                                "(" +
+                                _vm._s(
+                                  list.high_score_user_id === null
+                                    ? "Guest"
+                                    : list.score_user.name
+                                ) +
+                                ")\n                                    "
+                            )
+                          ])
+                        : _c("p", { staticClass: "card-text" }, [
+                            _vm._v("ハイスコア: まだプレイされていません")
+                          ])
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-6" }, [
@@ -42558,7 +42579,7 @@ var render = function() {
                         { staticClass: "card-text d-flex justify-content-end" },
                         [
                           _vm._v(
-                            "\n                                        Made by " +
+                            "\n                                        作成者: " +
                               _vm._s(list.user.name) +
                               "\n                                    "
                           )
@@ -42571,7 +42592,7 @@ var render = function() {
                           staticClass: "btn btn-primary float-right",
                           attrs: { href: "/drills/show/" + list.id }
                         },
-                        [_vm._v("Play")]
+                        [_vm._v("ゲーム開始")]
                       )
                     ])
                   ])

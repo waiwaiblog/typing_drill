@@ -137,7 +137,7 @@ class DrillsController extends Controller
             'order' => 10
         ]);
 
-        return redirect('/mypage')->with('flash_message', 'Registered.');
+        return redirect('/mypage')->with('flash_message', '登録しました');
     }
 
     /**
@@ -149,7 +149,7 @@ class DrillsController extends Controller
     public function show($id)
     {
         if(!ctype_digit($id)) {
-            return redirect(route('index'))->with('flash_message', __('Invalid operation was performed.'));
+            return redirect(route('index'))->with('flash_message', __('不正な操作が行われました'));
         }
 
         $drill = Drill::with(['problems', 'category', 'user'])->where('id', $id)->get();
@@ -170,6 +170,9 @@ class DrillsController extends Controller
      */
     public function edit($id)
     {
+        if(!ctype_digit($id)) {
+            return redirect(route('index'))->with('flash_message', __('不正な操作が行われました'));
+        }
         $categories = Category::all();
         $drill = Drill::with('problems')->where('id', $id)->get();
 
@@ -254,7 +257,7 @@ class DrillsController extends Controller
         }
 
 
-        return redirect('/mypage')->with('flash_message', 'Updated.');
+        return redirect('/mypage')->with('flash_message', '編集しました');
     }
 
     /**

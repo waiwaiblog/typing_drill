@@ -28,9 +28,10 @@ class OthersController extends Controller
     public function mypage()
     {
         $user_id = Auth::id();
-        $my_drills = Drill::with('category')->where('user_id', $user_id)->get();
-        $my_scores = Score::with('drill:id,title')->where('user_id', $user_id)->get();
+        $my_drills = Drill::with('category')->where('user_id', $user_id)->latest()->get();
+        $my_scores = Score::with('drill:id,title')->where('user_id', $user_id)->latest('updated_at')->get();
 
+//        dd(json_decode(json_encode($my_drills)));
         return view('mypage', compact(['my_drills', 'my_scores']));
     }
 }

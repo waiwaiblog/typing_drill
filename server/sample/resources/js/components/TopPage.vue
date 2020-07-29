@@ -4,13 +4,13 @@
             <div class="form-row justify-content-center">
                 <div class="col-md-3 mb-4">
                     <select class="custom-select custom-select-sm" v-model="selectCategoryId">
-                        <option :value="null" disabled>Select Category</option>
+                        <option :value="null" disabled>ジャンルで絞る</option>
                         <option v-for="(category, index) in categories" :key="index" :value="index + 1">{{ category.category_name }}</option>
                     </select>
                 </div>
                 <div class="col-md-3 mb-4">
                     <select class="custom-select custom-select-sm" v-model="selectDifficultyId">
-                        <option :value="null" disabled>Select Difficulty</option>
+                        <option :value="null" disabled>難易度で絞る</option>
                         <option value="1">★☆☆☆☆</option>
                         <option value="2">★★☆☆☆</option>
                         <option value="3">★★★☆☆</option>
@@ -19,7 +19,7 @@
                     </select>
                 </div>
                 <div class="col-md-1 mb-4">
-                    <button style="width: 100%" class="btn btn-sm btn-outline-secondary" @click="ressetting">clear</button>
+                    <button style="width: 100%" class="btn btn-sm btn-outline-secondary" @click="ressetting">クリア</button>
                 </div>
             </div>
             <div class="row justify-content-center">
@@ -34,15 +34,16 @@
                                             <span class="badge badge-pill badge-success mr-2">{{ numberToCategory(list.category_id) }}</span>
                                             <img :src="numberToDifficulty(list.difficulty)">
                                         </p>
-                                        <p class="card-text">
+                                        <p class="card-text" v-if="list.high_score !== null">
                                             HighScore: {{ list.high_score }}({{ list.high_score_user_id === null ? 'Guest' : list.score_user.name }})
                                         </p>
+                                        <p class="card-text" v-else>ハイスコア: まだプレイされていません</p>
                                     </div>
                                     <div class="col-md-6">
                                         <p class="card-text d-flex justify-content-end">
-                                            Made by {{ list.user.name }}
+                                            作成者: {{ list.user.name }}
                                         </p>
-                                        <a :href="'/drills/show/' + list.id" class="btn btn-primary float-right">Play</a>
+                                        <a :href="'/drills/show/' + list.id" class="btn btn-primary float-right">ゲーム開始</a>
                                     </div>
                                 </div>
                             </div>
